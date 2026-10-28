@@ -1,0 +1,2012 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Lab Partner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a TU-blue lab bench band on top, a stepper, then a two-pane workbench (the student's paper on a white sheet, Goldie's panel beside it). */
+:root {
+  --bg: #EEF2F8; --surface: #FFFFFF; --ink: #17223A; --muted: #56627A; --line: #D3DBE8;
+  --brand: #0E2C5C; --brand-ink: #FFFFFF; --gold: #C8961E; --gold-soft: #F6E7C1;
+  --accent: #1D4E9E; --accent-ink: #FFFFFF;
+  --mark: #FFDF7A; --mark-soft: #FFF3C9;
+  --good: #2E7D4F; --good-soft: #E3F2E8; --bad: #B3261E; --bad-soft: #FBE6E4; --check: #9A5B00; --check-soft: #FDF0DA;
+  --sheet: #FFFFFF; --sheet-ink: #1A1A1A; --sheet-faint: #A8B0BF;
+  --shadow: 0 1px 2px rgba(14, 44, 92, .08), 0 6px 20px rgba(14, 44, 92, .08);
+  --f-display: 'Bricolage Grotesque', 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --f-body: 'Source Sans 3', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --f-paper: 'Tinos', 'Times New Roman', Times, serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0D1422; --surface: #16213A; --ink: #E5EBF5; --muted: #9AA8C2; --line: #2B3A5A;
+  --brand: #0A1F44; --brand-ink: #F2F5FB; --gold: #E2B54A; --gold-soft: #3A2F15;
+  --accent: #7FA8F0; --accent-ink: #0B1730;
+  --mark: #FFDF7A; --mark-soft: #FFF3C9;
+  --good: #7CCB98; --good-soft: #17301F; --bad: #F2948C; --bad-soft: #3A1715; --check: #F0BC62; --check-soft: #3A2A10;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0D1422; --surface: #16213A; --ink: #E5EBF5; --muted: #9AA8C2; --line: #2B3A5A;
+  --brand: #0A1F44; --brand-ink: #F2F5FB; --gold: #E2B54A; --gold-soft: #3A2F15;
+  --accent: #7FA8F0; --accent-ink: #0B1730;
+  --mark: #FFDF7A; --mark-soft: #FFF3C9;
+  --good: #7CCB98; --good-soft: #17301F; --bad: #F2948C; --bad-soft: #3A1715; --check: #F0BC62; --check-soft: #3A2A10;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.5 var(--f-body); }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+a { color: var(--accent); }
+
+.band { background: var(--brand); color: var(--brand-ink); }
+.band-in, .wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band-in { display: flex; align-items: center; gap: 14px; padding-block: 14px; flex-wrap: wrap; }
+.band .logo { width: 52px; height: 52px; flex: none; }
+.band h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -.01em; }
+.band h1 .rador { font-weight: 300; font-style: italic; letter-spacing: 0; }
+.band .tag { font-size: .95rem; opacity: .85; }
+.band .privacy { margin-left: auto; font-size: .85rem; opacity: .85; display: flex; align-items: center; gap: 6px; }
+.band .privacy svg { width: 16px; height: 16px; }
+.band .privacy { align-items: flex-start; } .band .privacy svg { margin-top: 3px; flex: none; }
+.band .built { opacity: .85; }
+
+.steps { display: flex; gap: 6px; list-style: none; padding: 0; margin: 18px 0 0; flex-wrap: wrap; }
+.steps li { font: 500 .78rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 7px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.steps li .n { color: var(--gold); margin-right: 4px; }
+.steps li.on { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.steps li.done { color: var(--ink); }
+
+main { padding-block: 20px 48px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 24px; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--f-mono); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; }
+
+/* Goldie speaking */
+.say { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+.say .goldie { width: 92px; height: 92px; }
+.bubble { position: relative; background: var(--gold-soft); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.bubble::before { content: ""; position: absolute; left: -9px; top: 26px; border: 9px solid transparent; border-left: 0; border-right-color: var(--gold-soft); }
+.bubble p { margin: 0 0 8px; } .bubble p:last-child { margin: 0; }
+
+/* buttons */
+.btn { border: 0; border-radius: 10px; padding: 11px 18px; font-weight: 700; background: var(--accent); color: var(--accent-ink); }
+.btn:hover { filter: brightness(1.08); }
+.btn.gold { background: var(--gold); color: #1B1405; }
+.btn.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--line); }
+.btn:disabled { opacity: .45; cursor: default; filter: none; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* upload */
+.upload { display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+.drop { border: 2.5px dashed var(--line); border-radius: 14px; padding: 28px 20px; text-align: center; display: grid; gap: 10px; place-items: center; background: var(--bg); transition: border-color .15s, background .15s; }
+.drop.over { border-color: var(--gold); background: var(--gold-soft); }
+.drop .big { font: 700 1.25rem var(--f-display); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.note { font-size: .92rem; }
+.err { color: var(--bad); font-weight: 600; }
+
+/* options */
+.opts { display: grid; gap: 22px; }
+fieldset { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 16px; margin: 0; min-width: 0; }
+legend { font: 700 1.05rem var(--f-display); padding: 0 6px; }
+.choice { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+.choice input { margin-top: 5px; accent-color: var(--accent); width: 18px; height: 18px; flex: none; }
+.sec-list { columns: 2 220px; column-gap: 24px; }
+.banner { border-radius: 12px; padding: 12px 14px; background: var(--check-soft); color: var(--ink); border-left: 5px solid var(--check); }
+
+/* workbench */
+.bench { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .9fr); gap: 20px; align-items: start; }
+.paper-wrap { background: var(--line); border-radius: 14px; padding: 18px; max-height: 78vh; overflow: auto; position: relative; }
+.sheet { --mt: 6em; --mb: 6em; --ml: 6em; --mr: 6em; position: relative; background: var(--sheet); color: var(--sheet-ink); font: 15px/1.15 var(--f-paper); padding: var(--mt) var(--mr) var(--mb) var(--ml); max-width: 51em; margin: 0 auto; box-shadow: 0 2px 10px rgba(0,0,0,.18); border-radius: 2px; }
+.sheet .content { position: relative; background: var(--sheet); }
+.sheet.marg { background: repeating-linear-gradient(45deg, var(--mark) 0 6px, var(--mark-soft) 6px 14px); }
+.hdr { position: absolute; top: 2.6em; left: var(--ml); right: var(--mr); display: flex; justify-content: space-between; gap: 1em; min-height: 1.3em; color: var(--sheet-ink); }
+.hdr .hdr-empty { position: absolute; inset: -.3em -.4em; border: 1px dashed var(--sheet-faint); color: var(--sheet-faint); font: 500 10px var(--f-mono); text-transform: uppercase; letter-spacing: .1em; display: flex; align-items: center; justify-content: center; }
+.hdr.hot { background: var(--mark); outline: 3px solid var(--mark); border-radius: 2px; }
+.flagrow { position: relative; display: flex; align-items: center; gap: 8px; margin: .2em 0 .4em; min-height: 36px; }
+.flag { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--gold); color: #1B1405; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.2); scroll-margin: 40px; flex: none; animation: nudge 1.4s ease-in-out 2; }
+.flag svg { width: 20px; height: 20px; }
+.tip { display: none; background: var(--brand); color: var(--brand-ink); font: 600 15px/1.3 var(--f-body); padding: 7px 11px; border-radius: 8px; max-width: 28em; }
+.flagrow:hover .tip, .flag:focus-visible + .tip, .flagrow.open .tip { display: block; }
+.hintnote { color: var(--muted); }
+@keyframes nudge { 0%, 100% { transform: none; } 50% { transform: translateY(-3px) rotate(-8deg); } }
+.sheet.marg > .flagrow, .hdr ~ .flagrow { position: relative; z-index: 1; }
+.pin { display: inline-flex; align-items: center; justify-content: center; min-width: 1.35em; height: 1.35em; padding: 0 .3em; margin-right: .25em; border-radius: 99px; background: var(--brand); color: var(--brand-ink); font: 700 .7em/1 var(--f-body); text-indent: 0; vertical-align: .15em; }
+.para { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; scroll-margin: 120px; }
+.para.blank { color: var(--sheet-faint); font-size: .8em; }
+.para.fig { color: var(--sheet-faint); font-style: italic; text-align: center; border: 1px dashed var(--sheet-faint); padding: 1.2em; margin: .4em 0; }
+.pbreak { display: flex; align-items: center; gap: 8px; color: var(--sheet-faint); font: 500 10px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; margin: 1.6em -3em; }
+.pbreak::before, .pbreak::after { content: ""; flex: 1; border-top: 1.5px dashed var(--sheet-faint); }
+.tbl { border-top: 1.5px solid var(--sheet-ink); border-bottom: 1.5px solid var(--sheet-ink); margin: .6em 0; padding: .3em 0; font-size: .82em; display: grid; gap: .1em 1em; overflow-x: auto; }
+.tbl .td { min-width: 0; }
+.tbl .para { line-height: 1.4 !important; text-indent: 0 !important; padding-left: 0 !important; }
+.para.also { background: var(--mark-soft); }
+.para.now { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
+mark { background: var(--mark); color: var(--sheet-ink); padding: 0 1px; border-radius: 2px; box-shadow: 0 0 0 2px var(--mark); }
+
+.panel { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); display: grid; gap: 14px; }
+.progress { display: flex; align-items: center; gap: 10px; }
+.bar { flex: 1; height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--gold); border-radius: 99px; transition: width .3s; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font: 500 .72rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; padding: 5px 8px; border-radius: 99px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+.chip.check { background: var(--check-soft); color: var(--check); border-color: transparent; }
+.chip.whole { background: var(--gold-soft); color: var(--ink); border-color: transparent; }
+.answers { display: grid; gap: 8px; }
+.ans { text-align: left; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font-weight: 600; display: flex; gap: 10px; align-items: flex-start; }
+.ans:hover:not(:disabled) { border-color: var(--accent); }
+.ans .k { font: 500 .8rem var(--f-mono); color: var(--muted); padding-top: 2px; }
+.ans.right { border-color: var(--good); background: var(--good-soft); }
+.ans.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.ans:disabled { cursor: default; }
+.reveal { border-radius: 12px; padding: 14px 16px; border: 1px solid var(--line); background: var(--bg); display: grid; gap: 8px; }
+.reveal h3 { font-size: 1.15rem; }
+.reveal .verdict { font-weight: 700; }
+.reveal .verdict.good { color: var(--good); } .reveal .verdict.bad { color: var(--bad); } .reveal .verdict.check { color: var(--check); }
+.reveal p { margin: 0; }
+.jump { display: none; justify-self: start; padding: 8px 14px; }
+.places { margin: 0; display: grid; gap: 8px; }
+.pins { display: flex; flex-wrap: wrap; gap: 6px; }
+.pinbtn { min-width: 34px; height: 34px; border-radius: 99px; border: 0; background: var(--brand); color: var(--brand-ink); font-weight: 700; }
+.alsobox { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 12px; }
+.alsohead { margin: 0; font-weight: 700; }
+.alsoitem { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 6px; }
+.alsoitem h4 { margin: 0; font: 700 1.05rem var(--f-display); }
+.alsoitem p { margin: 0; }
+.btn.small { padding: 6px 12px; font-size: .95rem; }
+.fixline { border-left: 4px solid var(--gold); padding-left: 10px; }
+
+/* checklist */
+.cl { display: grid; gap: 12px; margin-top: 18px; }
+.cl label { display: grid; grid-template-columns: auto 1fr; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; }
+.cl input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--good); }
+.cl .q { font-weight: 600; }
+.cl .ex { font: italic .95rem/1.45 var(--f-paper); color: var(--muted); margin-top: 6px; }
+.cl .exlead { display: block; font: 400 .95rem/1.45 var(--f-body); font-style: normal; margin-bottom: 2px; }
+.cl label:has(input:checked) { background: var(--good-soft); border-color: transparent; }
+
+/* receipt */
+.receipt { max-width: 640px; margin: 0 auto; background: var(--sheet); color: var(--sheet-ink); border-radius: 4px; padding: 28px 30px; box-shadow: var(--shadow); font-family: var(--f-body); }
+.receipt .rh { display: flex; gap: 14px; align-items: center; border-bottom: 2px solid var(--sheet-ink); padding-bottom: 12px; margin-bottom: 14px; }
+.receipt .rh svg { width: 56px; height: 56px; }
+.receipt h2 { font-size: 1.5rem; }
+.receipt dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 0 0 16px; }
+.receipt dt { font: 500 .75rem/1.9 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: #555; }
+.receipt dd { margin: 0; overflow-wrap: anywhere; }
+.receipt table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.receipt th, .receipt td { text-align: left; padding: 7px 6px; border-bottom: 1px solid #ddd; }
+.receipt th { font: 500 .72rem var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: #555; }
+.receipt td.n, .receipt th.n { text-align: right; }
+.receipt tfoot td { font-weight: 700; border-bottom: 0; border-top: 2px solid var(--sheet-ink); }
+.receipt .foot { margin-top: 14px; font-size: .85rem; color: #555; }
+
+.stack { display: grid; gap: 16px; }
+.center { text-align: center; }
+
+@media (max-width: 860px) {
+  .upload, .bench { grid-template-columns: minmax(0, 1fr); }
+  .panel { position: static; order: -1; }
+  .jump { display: inline-block; }
+  .paper-wrap { max-height: 60vh; padding: 10px; }
+  .sheet { padding: calc(var(--mt) * .55) calc(var(--mr) * .3) calc(var(--mb) * .55) calc(var(--ml) * .3); font-size: 14px; }
+  .hdr { top: 1.2em; }
+  .pbreak { margin: 1.4em -1em; }
+  .band .privacy { margin-left: 0; }
+}
+@media (max-width: 480px) { .say { grid-template-columns: minmax(0, 1fr); } .say .goldie { width: 72px; height: 72px; } .bubble::before { display: none; } .card { padding: 18px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+@media print {
+  body { background: #fff; }
+  .band, .steps, .noprint { display: none !important; }
+  .receipt { box-shadow: none; max-width: none; }
+}
+</style>
+
+<header class="band">
+  <div class="band-in">
+    <span class="logo" id="logo"></span>
+    <div>
+      <h1>Lab-<span class="rador">rador</span> Partner</h1>
+      <div class="tag">APA feedback, fetched by Goldie</div>
+    </div>
+    <div class="privacy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="none"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none"/></svg><span>Your paper never leaves your computer<br><span class="built">Built with Claude. The analysis itself uses rules, not AI.</span></span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <ol class="steps" id="steps">
+    <li data-s="upload"><span class="n">1</span>Upload</li>
+    <li data-s="options"><span class="n">2</span>Choose</li>
+    <li data-s="whole"><span class="n">3</span>Whole paper</li>
+    <li data-s="located"><span class="n">4</span>In your text</li>
+    <li data-s="check"><span class="n">5</span>Self-review</li>
+    <li data-s="receipt"><span class="n">6</span>Receipt</li>
+  </ol>
+
+  <main>
+    <!-- 1. Upload -->
+    <section id="s-upload" class="card">
+      <div class="upload">
+        <div class="say">
+          <span class="goldie" data-goldie="happy"></span>
+          <div class="bubble">
+            <p><strong>Hi, I&#8217;m Goldie, your lab partner.</strong> Give me your paper and I&#8217;ll sniff out APA formatting problems.</p>
+            <p>I won&#8217;t fix them for you. I&#8217;ll show you where each one is, you figure out what&#8217;s wrong, and then I&#8217;ll show you the answer and where to learn more.</p>
+            <p class="muted note">Writing in Google Docs? Use File &gt; Download &gt; Microsoft Word (.docx) first.</p>
+          </div>
+        </div>
+        <div class="stack">
+          <label class="drop" id="drop" for="file">
+            <span class="big">Drop your .docx here</span>
+            <span class="muted">or click to choose a file</span>
+            <input type="file" id="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          </label>
+          <div class="row" style="justify-content:center">
+            <span class="muted">No paper handy?</span>
+            <button class="btn ghost" id="trySample" type="button">Try the practice paper</button>
+          </div>
+          <p class="err center" id="upErr" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Options -->
+    <section id="s-options" class="card" hidden>
+      <div class="opts">
+        <div class="say">
+          <span class="goldie" data-goldie="happy"></span>
+          <div class="bubble"><p>Got it: <strong id="fname"></strong>. Two quick questions before I start sniffing.</p></div>
+        </div>
+        <p class="banner" id="convBanner" hidden></p>
+        <fieldset>
+          <legend>What kind of paper is this?</legend>
+          <label class="choice"><input type="radio" name="ptype" id="pt-student" value="student" checked><span><strong>Student paper</strong> <span class="muted">(most class assignments; page number only in the header)</span></span></label>
+          <label class="choice"><input type="radio" name="ptype" id="pt-pro" value="professional"><span><strong>Professional paper</strong> <span class="muted">(for publication, or when your instructor asks for a running head)</span></span></label>
+        </fieldset>
+        <fieldset>
+          <legend>Which sections should I check?</legend>
+          <p class="muted note" style="margin:0 0 8px">If your assignment covers only part of the paper (a Results section for a lab, say), uncheck the rest.</p>
+          <div class="sec-list" id="secList"></div>
+        </fieldset>
+        <div class="row">
+          <button class="btn gold" id="go" type="button">Fetch!</button>
+          <button class="btn ghost" id="back1" type="button">Choose a different file</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3/4. Walkthrough -->
+    <section id="s-walk" hidden>
+      <div class="bench">
+        <div class="paper-wrap" id="paperWrap"><div class="sheet" id="sheet"></div></div>
+        <aside class="panel">
+          <div class="card stack" id="panel" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5. Self-review -->
+    <section id="s-check" class="card" hidden>
+      <div class="say">
+        <span class="goldie" data-goldie="think"></span>
+        <div class="bubble">
+          <p><strong>Some things only you can judge.</strong> I can&#8217;t tell whether your verb tense or word choice is right, but I noticed spots worth a second look. Check off each question once you&#8217;ve thought about it. These are just for you; they won&#8217;t appear on your receipt.</p>
+        </div>
+      </div>
+      <div class="cl" id="clList"></div>
+      <div class="row" style="margin-top:20px"><button class="btn gold" id="toReceipt" type="button">Get my receipt</button></div>
+    </section>
+
+    <!-- 6. Receipt -->
+    <section id="s-receipt" hidden>
+      <div class="receipt" id="receipt"></div>
+      <div class="row noprint" style="justify-content:center; margin-top:18px">
+        <button class="btn" id="printBtn" type="button" hidden>Print or save as PDF</button>
+        <button class="btn" id="copyBtn" type="button">Copy receipt text</button>
+        <button class="btn ghost" id="again" type="button">Check another paper</button>
+      </div>
+      <p class="muted center noprint note" id="copyMsg" aria-live="polite"></p>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+/* Lab Partner checking engine (v1)
+   Works in the browser (window.LabPartnerEngine) and in Node (module.exports).
+   Usage: const result = await LabPartnerEngine.check(arrayBuffer, { JSZip, DOMParser, paperType: 'student', sections: null }) */
+(function (root) {
+  'use strict';
+
+  // ------------------------------------------------------------------ XML helpers
+  const kids = (el, name) => {
+    const out = [];
+    if (!el) return out;
+    for (let n = el.firstChild; n; n = n.nextSibling) if (n.nodeType === 1 && (!name || n.nodeName === 'w:' + name)) out.push(n);
+    return out;
+  };
+  const kid = (el, name) => kids(el, name)[0] || null;
+  const attr = (el, name) => (el ? el.getAttribute('w:' + name) : null);
+  const num = (v) => (v === null || v === undefined || v === '' ? null : Number(v));
+  const onOff = (el) => {
+    if (!el) return null;
+    const v = attr(el, 'val');
+    return !(v === '0' || v === 'false' || v === 'none');
+  };
+  const LINKS = {
+    margins: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/margins',
+    font: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/font',
+    spacing: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/line-spacing',
+    alignment: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/paragraph-alignment-indentation',
+    pageHeader: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/page-header',
+    titlePage: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/title-page',
+    headings: 'https://apastyle.apa.org/style-grammar-guidelines/headings',
+    order: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/organization',
+    refList: 'https://apastyle.apa.org/style-grammar-guidelines/references/basic-principles',
+    refFormat: 'https://apastyle.apa.org/style-grammar-guidelines/paper-format/reference-list',
+    authors: 'https://apastyle.apa.org/style-grammar-guidelines/references/elements-list-entry',
+    refOrder: 'https://apastyle.apa.org/style-grammar-guidelines/references/elements-list-entry',
+    doi: 'https://apastyle.apa.org/style-grammar-guidelines/references/dois-urls',
+    sentenceCase: 'https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case',
+    journal: 'https://apastyle.apa.org/style-grammar-guidelines/references/examples/journal-article-references',
+    stats: 'https://apastyle.apa.org/style-grammar-guidelines/numbers-statistics',
+    statsFormat: 'https://apastyle.apa.org/instructional-aids/numbers-statistics-guide.pdf',
+    numbers: 'https://apastyle.apa.org/style-grammar-guidelines/numbers',
+    citeBasics: 'https://apastyle.apa.org/style-grammar-guidelines/citations/basic-principles/parenthetical-versus-narrative',
+    citeAuthors: 'https://apastyle.apa.org/style-grammar-guidelines/citations/basic-principles/author-date',
+    quotations: 'https://apastyle.apa.org/style-grammar-guidelines/citations/quotations',
+    purdue: 'https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/general_format.html',
+    purdueRefs: 'https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_basic_rules.html',
+  };
+
+  // ------------------------------------------------------------------ Style resolution
+  function readStyles(stylesDoc, themeFonts) {
+    const st = { byId: {}, defaultPara: null, defaults: { p: {}, r: {} } };
+    if (!stylesDoc) return st;
+    const root = stylesDoc.documentElement;
+    const dd = kid(root, 'docDefaults');
+    if (dd) {
+      const pp = kid(kid(dd, 'pPrDefault'), 'pPr');
+      const rp = kid(kid(dd, 'rPrDefault'), 'rPr');
+      st.defaults.p = readPPr(pp);
+      st.defaults.r = readRPr(rp, themeFonts);
+    }
+    for (const s of kids(root, 'style')) {
+      const id = attr(s, 'styleId');
+      const nameEl = kid(s, 'name');
+      const based = kid(s, 'basedOn');
+      st.byId[id] = {
+        id, type: attr(s, 'type'), name: nameEl ? attr(nameEl, 'val') : id,
+        basedOn: based ? attr(based, 'val') : null,
+        p: readPPr(kid(s, 'pPr')), r: readRPr(kid(s, 'rPr'), themeFonts),
+      };
+      if (attr(s, 'type') === 'paragraph' && attr(s, 'default') === '1') st.defaultPara = id;
+    }
+    return st;
+  }
+  function readPPr(pPr) {
+    const o = {};
+    if (!pPr) return o;
+    const sp = kid(pPr, 'spacing');
+    if (sp) {
+      if (attr(sp, 'line') !== null) o.line = num(attr(sp, 'line'));
+      if (attr(sp, 'lineRule') !== null) o.lineRule = attr(sp, 'lineRule');
+      if (attr(sp, 'before') !== null) o.before = num(attr(sp, 'before'));
+      if (attr(sp, 'after') !== null) o.after = num(attr(sp, 'after'));
+      if (attr(sp, 'beforeAutospacing') === '1') o.before = 280;
+      if (attr(sp, 'afterAutospacing') === '1') o.after = 280;
+    }
+    const ind = kid(pPr, 'ind');
+    if (ind) {
+      const l = attr(ind, 'left') ?? attr(ind, 'start');
+      if (l !== null) o.indLeft = num(l);
+      if (attr(ind, 'firstLine') !== null) { o.indFirst = num(attr(ind, 'firstLine')); o.indHanging = 0; }
+      if (attr(ind, 'hanging') !== null) { o.indHanging = num(attr(ind, 'hanging')); o.indFirst = 0; }
+    }
+    const jc = kid(pPr, 'jc');
+    if (jc) o.jc = attr(jc, 'val');
+    if (kid(pPr, 'pageBreakBefore')) o.pageBreakBefore = onOff(kid(pPr, 'pageBreakBefore'));
+    const ol = kid(pPr, 'outlineLvl');
+    if (ol) o.outline = num(attr(ol, 'val'));
+    if (kid(pPr, 'numPr')) o.numbered = true;
+    return o;
+  }
+  function readRPr(rPr, themeFonts) {
+    const o = {};
+    if (!rPr) return o;
+    const f = kid(rPr, 'rFonts');
+    if (f) {
+      const a = attr(f, 'ascii') || attr(f, 'hAnsi');
+      const th = attr(f, 'asciiTheme') || attr(f, 'hAnsiTheme');
+      if (a) o.font = a;
+      else if (th && themeFonts) o.font = /major/i.test(th) ? themeFonts.major : themeFonts.minor;
+    }
+    const sz = kid(rPr, 'sz');
+    if (sz) o.size = num(attr(sz, 'val')) / 2;
+    const b = kid(rPr, 'b'); if (b) o.bold = onOff(b);
+    const i = kid(rPr, 'i'); if (i) o.italic = onOff(i);
+    const rs = kid(rPr, 'rStyle'); if (rs) o.rStyle = attr(rs, 'val');
+    const va = kid(rPr, 'vertAlign'); if (va) o.vert = attr(va, 'val');
+    return o;
+  }
+  function styleChain(styles, id) {
+    const chain = [];
+    const seen = new Set();
+    while (id && styles.byId[id] && !seen.has(id)) { seen.add(id); chain.unshift(styles.byId[id]); id = styles.byId[id].basedOn; }
+    return chain;
+  }
+
+  // ------------------------------------------------------------------ Document model
+  async function parse(buf, env) {
+    const zip = await env.JSZip.loadAsync(buf);
+    const read = async (n) => (zip.file(n) ? new env.DOMParser().parseFromString(await zip.file(n).async('string'), 'application/xml') : null);
+    const doc = await read('word/document.xml');
+    if (!doc) throw new Error('This does not look like a Word (.docx) file.');
+    const theme = await read('word/theme/theme1.xml');
+    let themeFonts = null;
+    if (theme) {
+      const get = (tag) => {
+        const el = theme.getElementsByTagName(tag)[0];
+        const latin = el && el.getElementsByTagName('a:latin')[0];
+        return latin ? latin.getAttribute('typeface') : null;
+      };
+      themeFonts = { major: get('a:majorFont'), minor: get('a:minorFont') };
+    }
+    const styles = readStyles(await read('word/styles.xml'), themeFonts);
+    const headers = [];
+    for (const n of Object.keys(zip.files).filter((n) => /^word\/header\d+\.xml$/.test(n))) {
+      const h = await read(n);
+      const text = Array.from(h.getElementsByTagName('w:t')).map((t) => t.textContent).join('');
+      const instr = Array.from(h.getElementsByTagName('w:instrText')).map((t) => t.textContent).join(' ') +
+        ' ' + Array.from(h.getElementsByTagName('w:fldSimple')).map((t) => t.getAttribute('w:instr')).join(' ');
+      const jcs = Array.from(h.getElementsByTagName('w:jc')).map((j) => j.getAttribute('w:val'));
+      const tabs = h.getElementsByTagName('w:ptab').length + h.getElementsByTagName('w:tab').length;
+      headers.push({ name: n, text: text.trim(), hasPage: /PAGE/.test(instr), jcs, tabs });
+    }
+    // which headers are referenced (and whether the first page differs)
+    const body = kid(doc.documentElement, 'body');
+    const elements = [];
+    const sects = [];
+    const walk = (container, inTable, cell) => {
+      for (const el of kids(container)) {
+        if (el.nodeName === 'w:p') { const pp = makePara(el, styles, inTable, elements.length); if (cell) { pp.row = cell.r; pp.col = cell.c; } elements.push(pp); }
+        else if (el.nodeName === 'w:tbl') {
+          const tb = kid(kid(el, 'tblPr'), 'tblBorders');
+          const vertical = tb ? ['left', 'right', 'insideV'].some((s) => { const b = kid(tb, s); return b && !/none|nil/.test(attr(b, 'val') || ''); }) : null;
+          const cellV = Array.from(el.getElementsByTagName('w:tcBorders')).some((cb) =>
+            ['left', 'right', 'start', 'end'].some((s) => { const b = kid(cb, s); return b && !/none|nil/.test(attr(b, 'val') || ''); }));
+          const tblStyle = kid(kid(el, 'tblPr'), 'tblStyle');
+          const trs = kids(el, 'tr');
+          elements.push({ kind: 'table', idx: elements.length, text: '', vertical: vertical || cellV, tblStyle: tblStyle ? attr(tblStyle, 'val') : null, cols: Math.max(1, ...trs.map((tr) => kids(tr, 'tc').length)) });
+          trs.forEach((tr, r) => kids(tr, 'tc').forEach((tc, c) => walk(tc, true, { r, c })));
+        } else if (el.nodeName === 'w:sdt') walk(kid(el, 'sdtContent'), inTable, cell);
+        else if (el.nodeName === 'w:sectPr') sects.push(readSect(el));
+      }
+    };
+    walk(body, false);
+    for (const e of elements) if (e.sectPr) sects.push(e.sectPr);
+    const titlePg = Array.from(body.getElementsByTagName('w:titlePg')).length > 0;
+    return { elements, sects, headers, styles, titlePg };
+  }
+
+  function readSect(s) {
+    const m = kid(s, 'pgMar');
+    return m ? { top: num(attr(m, 'top')), bottom: num(attr(m, 'bottom')), left: num(attr(m, 'left')), right: num(attr(m, 'right')) } : {};
+  }
+
+  function makePara(p, styles, inTable, idx) {
+    const pPr = kid(p, 'pPr');
+    const pst = kid(pPr, 'pStyle');
+    const styleId = pst ? attr(pst, 'val') : styles.defaultPara;
+    const chain = styleChain(styles, styleId);
+    const eff = Object.assign({}, styles.defaults.p);
+    for (const s of chain) Object.assign(eff, s.p);
+    Object.assign(eff, readPPr(pPr));
+    const styleR = Object.assign({}, styles.defaults.r);
+    for (const s of chain) Object.assign(styleR, s.r);
+    const styleName = chain.length ? chain[chain.length - 1].name : '';
+    // runs
+    const runs = [];
+    let text = '';
+    let pageBreak = false, image = false;
+    const visit = (node) => {
+      for (const n of kids(node)) {
+        const nn = n.nodeName;
+        if (nn === 'w:del' || nn === 'w:pPr' || nn === 'w:moveFrom') continue;
+        if (nn === 'w:r') {
+          const rPr = kid(n, 'rPr');
+          const direct = readRPr(rPr, null);
+          const r = Object.assign({}, styleR);
+          if (direct.rStyle) for (const s of styleChain(styles, direct.rStyle)) Object.assign(r, s.r);
+          // theme fonts in direct formatting were not resolved; keep style font then
+          Object.assign(r, direct);
+          if (!direct.font && rPr) {
+            const f = kid(rPr, 'rFonts');
+            if (f && (attr(f, 'asciiTheme') || attr(f, 'hAnsiTheme'))) r.font = r.font; // leave as style font
+          }
+          let rt = '';
+          for (const c of kids(n)) {
+            if (c.nodeName === 'w:t') rt += c.textContent;
+            else if (c.nodeName === 'w:tab' || c.nodeName === 'w:ptab') rt += '\t';
+            else if (c.nodeName === 'w:br') { if (attr(c, 'type') === 'page') pageBreak = true; else rt += ' '; }
+            else if (c.nodeName === 'w:lastRenderedPageBreak') { /* ignore */ }
+            else if (c.nodeName === 'w:drawing' || c.nodeName === 'w:pict' || c.nodeName === 'w:object') image = true;
+            else if (c.nodeName === 'w:sym') rt += '□';
+          }
+          if (rt) { runs.push({ text: rt, start: text.length, end: text.length + rt.length, bold: !!r.bold, italic: !!r.italic, font: r.font || null, size: r.size || null, vert: r.vert || null }); text += rt; }
+        } else if (nn === 'w:hyperlink' || nn === 'w:ins' || nn === 'w:smartTag' || nn === 'w:fldSimple' || nn === 'w:sdt' || nn === 'w:sdtContent' || nn === 'w:moveTo' || nn === 'w:customXml') visit(n);
+        else if (nn === 'w:oMath' || nn === 'w:oMathPara') {
+          const t = Array.from(n.getElementsByTagName('m:t')).map((x) => x.textContent).join('');
+          if (t) { runs.push({ text: t, start: text.length, end: text.length + t.length, bold: false, italic: true, font: 'Cambria Math', size: null, math: true }); text += t; }
+        }
+      }
+    };
+    visit(p);
+    const sp = kid(pPr, 'sectPr');
+    const textRuns = runs.filter((r) => r.text.trim());
+    return {
+      kind: 'p', idx, el: p, text, runs, inTable, styleId, styleName, image,
+      line: eff.line ?? 240, lineRule: eff.lineRule || 'auto', before: eff.before || 0, after: eff.after || 0,
+      indLeft: eff.indLeft || 0, indFirst: eff.indFirst || 0, indHanging: eff.indHanging || 0,
+      indRight: (() => { const ind = kid(pPr, 'ind'); return ind ? num(attr(ind, 'right') ?? attr(ind, 'end')) || 0 : 0; })(),
+      jc: eff.jc || 'left', outline: eff.outline, numbered: !!eff.numbered,
+      pageBreakBefore: !!eff.pageBreakBefore, pageBreak, sectPr: sp ? readSect(sp) : null,
+      allBold: textRuns.length > 0 && textRuns.every((r) => r.bold),
+      allItalic: textRuns.length > 0 && textRuns.every((r) => r.italic),
+      empty: !text.trim(),
+    };
+  }
+
+  // ------------------------------------------------------------------ Structure detection
+  const KNOWN_L1 = /^(abstract|introduction|method|methods|methodology|results|discussion|conclusions?|references|works cited|bibliography|appendix\b.*|general discussion|limitations)$/i;
+  const SUBSECTION = /^(participants|materials|measures|materials and apparatus|apparatus|procedure|design|data analysis|hypotheses|assumptions|results paragraph|statistical analysis)$/i;
+  const CAPTION = /^(table|figure)\s+\d+\b/i;
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
+  const words = (s) => norm(s).split(' ').filter(Boolean).length;
+
+  function centered(p) { return p.jc === 'center'; }
+
+  function headingInfo(p) {
+    if (p.kind !== 'p' || p.empty || p.inTable) return null;
+    const t = norm(p.text);
+    if (CAPTION.test(t)) return null;
+    const styled = /heading|title/i.test(p.styleName) || (p.outline !== undefined && p.outline !== null && p.outline < 9);
+    const short = words(t) <= 14 && t.length <= 120;
+    if (!short) return null;
+    const endsPeriod = /[.?!]$/.test(t) && !/\bet al\.$/.test(t);
+    if (KNOWN_L1.test(t)) return { level: 1, text: t, known: true };
+    if (SUBSECTION.test(t)) return { level: centered(p) ? 1 : 2, text: t, known: true, sub: true };
+    if (!(p.allBold || styled)) return null;
+    if (endsPeriod && !styled) return null;
+    if (centered(p)) return { level: 1, text: t };
+    if (p.indFirst >= 600 || p.indLeft >= 600) return { level: p.allItalic ? 5 : 4, text: t };
+    return { level: p.allItalic ? 3 : 2, text: t };
+  }
+
+  function structure(model) {
+    const els = model.elements;
+    const P = els.filter((e) => e.kind === 'p');
+    // Title page: elements before the first page break / section break, when that comes early
+    let titleEnd = -1, titleBreakKind = null;
+    let nonEmpty = 0;
+    for (const e of els) {
+      if (e.kind === 'table') break;
+      if (e.kind === 'p' && !e.empty) nonEmpty++;
+      if (nonEmpty > 10) break;
+      if (e.kind === 'p' && (e.pageBreak || e.sectPr) && nonEmpty >= 2) { titleEnd = e.idx; titleBreakKind = 'break'; break; }
+      if (e.kind === 'p' && e.pageBreakBefore && nonEmpty >= 3) { titleEnd = e.idx - 1; titleBreakKind = 'break'; break; }
+    }
+    if (titleEnd < 0) {
+      // centered block followed by a long run of empty paragraphs
+      let i = 0, seenCentered = 0;
+      for (; i < els.length && i < 40; i++) {
+        const e = els[i];
+        if (e.kind !== 'p') break;
+        if (!e.empty) { if (centered(e)) seenCentered++; else break; }
+        else if (seenCentered >= 3) {
+          let j = i; while (j < els.length && els[j].kind === 'p' && els[j].empty) j++;
+          if (j - i >= 4) { titleEnd = j - 1; titleBreakKind = 'empties'; break; }
+        }
+      }
+    }
+    const titlePage = titleEnd >= 0 ? els.slice(0, titleEnd + 1).filter((e) => e.kind === 'p' && !e.empty) : [];
+    // headings
+    const headings = [];
+    for (const e of els) {
+      if (e.idx <= titleEnd) continue;
+      const h = headingInfo(e);
+      if (h) headings.push(Object.assign({ idx: e.idx }, h));
+    }
+    // sections (level 1)
+    const l1 = headings.filter((h) => h.level === 1 && !h.sub);
+    const sections = l1.map((h, k) => ({ name: h.text, start: h.idx, end: k + 1 < l1.length ? l1[k + 1].idx - 1 : els.length - 1 }));
+    if (titleEnd + 1 < (l1[0] ? l1[0].idx : els.length)) sections.unshift({ name: 'Opening (before the first heading)', start: titleEnd + 1, end: l1[0] ? l1[0].idx - 1 : els.length - 1, opening: true });
+    const refSec = sections.find((s) => /^(references|works cited|bibliography)$/i.test(s.name));
+    return { titleEnd, titleBreakKind, titlePage, headings, sections, refSec, paras: P };
+  }
+
+  function looksConverted(model) {
+    const paras = model.elements.filter((e) => e.kind === 'p' && !e.empty && !e.inTable);
+    const sectCount = model.elements.filter((e) => e.sectPr).length;
+    const rightInd = paras.filter((p) => p.indRight > 0).length;
+    const tinyBottom = model.sects.some((s) => s.bottom !== undefined && s.bottom < 500);
+    return sectCount >= 3 && (rightInd / Math.max(1, paras.length) > 0.25 || tinyBottom);
+  }
+
+  // ------------------------------------------------------------------ Issue helpers
+  let ISSUE_ID = 0;
+  function issue(o) {
+    if (o.span && o.paras && o.paras.length === 1) o.paras = [o.span.para];
+    return Object.assign({ id: ++ISSUE_ID, severity: 'error', paras: [] }, o);
+  }
+
+  // ------------------------------------------------------------------ Checks: document
+  const NOVELTY = /comic|papyrus|chalk|jokerman|curlz|brush script|kristen|bradley hand|marker felt|^impact$|wingdings|webdings|jazz|lobster|harrington|chiller|ravie|snap itc|segoe print|ink free|gigi|vladimir|old english|blackadder|magneto|showcard/i;
+  const MATH_FONTS = /cambria math|symbol|segoe ui symbol/i;
+
+  function checkDocument(model, st, opts, out) {
+    const els = model.elements;
+    const body = els.filter((e) => e.kind === 'p' && !e.inTable);
+    // margins
+    if (!opts.converted && !opts.sectionMode) {
+      const bad = model.sects.filter((s) => ['top', 'bottom', 'left', 'right'].some((k) => s[k] !== undefined && s[k] !== null && Math.abs(s[k] - 1440) > 36));
+      if (bad.length) {
+        const s = bad[0];
+        const inch = (v) => (v / 1440).toFixed(2).replace(/\.?0+$/, '') + '"';
+        out.push(issue({ rule: 'margins', category: 'Page setup', scope: 'doc', target: 'margins',
+          title: 'Margins are not 1 inch on every side',
+          detail: `Your margins are top ${inch(s.top)}, bottom ${inch(s.bottom)}, left ${inch(s.left)}, right ${inch(s.right)}.`,
+          fix: 'Set all four margins to 1 inch (Layout > Margins > Normal in Word; File > Page setup in Google Docs).', link: LINKS.margins }));
+      }
+    }
+    // fonts
+    const tally = {};
+    for (const p of body) for (const r of p.runs) {
+      if (!r.text.trim() || r.math || (r.font && MATH_FONTS.test(r.font))) continue;
+      const k = (r.font || 'default') + '|' + (r.size || '?');
+      tally[k] = (tally[k] || 0) + r.text.length;
+    }
+    const dominant = Object.entries(tally).sort((a, b) => b[1] - a[1])[0];
+    const [domFont, domSize] = dominant ? dominant[0].split('|') : ['default', '?'];
+    const novelty = new Set(); let novEx = null;
+    for (const p of els) if (p.kind === 'p') for (const r of p.runs) if (r.font && NOVELTY.test(r.font)) { novelty.add(r.font); if (!novEx && r.text.trim()) novEx = { para: p.idx, start: r.start, end: r.end }; }
+    const firstBody = body.find((p) => !p.empty && p.text.length > 80 && !opts.skipped(p.idx));
+    if (novelty.size) out.push(issue({ rule: 'font-novelty', category: 'Page setup', scope: 'doc', example: novEx,
+      title: 'Hard-to-read font', detail: `Your paper uses ${[...novelty].join(', ')}.`,
+      fix: 'Use a standard, readable font such as Times New Roman 12, Calibri 11, Arial 11, or Georgia 11.', link: LINKS.font }));
+    if (dominant && domSize !== '?' && (Number(domSize) < 10 || Number(domSize) > 12.5)) out.push(issue({ rule: 'font-size', category: 'Page setup', scope: 'doc', example: firstBody ? { para: firstBody.idx, start: 0, end: firstBody.text.length } : null,
+      title: 'Unusual font size', detail: `Most of your text is ${domSize} point.`, fix: 'Body text should be about 10 to 12 point, depending on the font (Times New Roman 12 is the classic choice).', link: LINKS.font }));
+    // consistency (body text outside tables/captions/figures)
+    const inconsistent = [];
+    for (const p of body) {
+      if (p.idx <= st.titleEnd && false) continue;
+      if (CAPTION.test(norm(p.text)) || /^note\./i.test(norm(p.text))) continue;
+      if (opts.skipped(p.idx)) continue;
+      for (const r of p.runs) {
+        if (r.text.trim().length < 2 || r.math || r.vert || (r.font && MATH_FONTS.test(r.font))) continue;
+        const fontDiff = r.font && domFont !== 'default' && r.font !== domFont;
+        const sizeDiff = r.size && domSize !== '?' && Math.abs(r.size - Number(domSize)) > 0.5;
+        if (fontDiff || sizeDiff) { inconsistent.push({ p, r, fontDiff, sizeDiff }); break; }
+      }
+    }
+    for (const x of inconsistent.slice(0, 12)) out.push(issue({ rule: 'font-consistency', category: 'Page setup', scope: 'para', paras: [x.p.idx],
+      span: { para: x.p.idx, start: x.r.start, end: x.r.end },
+      title: 'Font does not match the rest of the paper',
+      detail: `This text is ${x.r.font || domFont} ${x.r.size || domSize} point; the rest of your paper is ${domFont} ${domSize} point.`,
+      fix: 'Select the text and change it to match (pasted text often keeps its original font).', link: LINKS.font }));
+    if (inconsistent.length > 12) out.push(issue({ rule: 'font-consistency-more', category: 'Page setup', scope: 'doc', severity: 'check',
+      title: `${inconsistent.length - 12} more paragraphs with mismatched fonts`, fix: 'Select all (Ctrl+A or Cmd+A) and set one font and size for the whole paper, then reformat headings.', link: LINKS.font }));
+    if (opts.converted) return;
+    // line spacing, extra space, alignment (grouped into runs)
+    const groupRuns = (pred) => {
+      const runs = []; let cur = null;
+      for (const p of body) {
+        if (p.empty || opts.skipped(p.idx)) continue;
+        if (pred(p)) { if (cur) cur.push(p); else runs.push((cur = [p])); } else cur = null;
+      }
+      return runs;
+    };
+    const notDouble = (p) => !(p.lineRule === 'auto' && p.line >= 460 && p.line <= 500) && !(p.lineRule !== 'auto' && p.line >= 460);
+    for (const run of groupRuns(notDouble).slice(0, 8)) {
+      const p = run[0];
+      const desc = p.lineRule === 'auto' ? (p.line <= 250 ? 'single spaced' : `spaced at ${(Math.round(p.line / 240 * 20) / 20).toFixed(2).replace(/0$/, '')} lines`) : 'set to an exact line height';
+      out.push(issue({ rule: 'line-spacing', category: 'Spacing', scope: 'para', paras: run.map((x) => x.idx),
+        span: { para: p.idx, start: 0, end: p.text.length },
+        title: run.length > 1 ? `${run.length} paragraphs are not double spaced` : 'This paragraph is not double spaced',
+        detail: `This text is ${desc}.`,
+        fix: 'Select the text and set line spacing to 2.0 (double). APA papers are double spaced everywhere, including the title page and references.', link: LINKS.spacing }));
+    }
+    const extra = (p) => (p.after > 20 || p.before > 20) && !CAPTION.test(norm(p.text));
+    const extraRuns = groupRuns(extra);
+    if (extraRuns.length) {
+      const all = extraRuns.flat();
+      const p = all[0];
+      out.push(issue({ rule: 'para-spacing', category: 'Spacing', scope: 'para', paras: all.map((x) => x.idx),
+        span: { para: p.idx, start: 0, end: p.text.length },
+        title: 'Extra space between paragraphs',
+        detail: `Word is adding ${Math.round(Math.max(p.before, p.after) / 20)} points of blank space ${p.after >= p.before ? 'after' : 'before'} your paragraphs, on top of the line spacing (it does this by default). You can see it as gaps between paragraphs that are bigger than the gaps between lines. It affects ${all.length} paragraph${all.length > 1 ? 's' : ''}.`,
+        fix: 'Select all your text, open Paragraph settings, and set Spacing Before and After to 0 pt. In Google Docs, use Format > Line & paragraph spacing > Remove space after paragraph.', link: LINKS.spacing }));
+    }
+    const justified = body.filter((p) => !p.empty && !opts.skipped(p.idx) && /both|distribute/.test(p.jc));
+    if (justified.length) out.push(issue({ rule: 'justified', category: 'Spacing', scope: 'para', paras: justified.map((p) => p.idx),
+      span: { para: justified[0].idx, start: 0, end: justified[0].text.length },
+      title: `${justified.length} paragraph${justified.length > 1 ? 's are' : ' is'} justified`,
+      detail: 'Justified text stretches the spaces so both margins line up.', fix: 'Use left alignment (a ragged right edge).', link: LINKS.alignment }));
+    // double spaces after sentences
+    let dbl = 0;
+    for (const p of body) {
+      if (opts.skipped(p.idx)) continue;
+      const m = /[.?!:]["”’)]? {2,}(?=\S)/.exec(p.text);
+      if (m && dbl < 6) {
+        dbl++;
+        out.push(issue({ rule: 'double-space', category: 'Spacing', scope: 'para', paras: [p.idx], span: { para: p.idx, start: m.index, end: m.index + m[0].length },
+          title: 'Two spaces after a sentence', fix: 'Use one space after periods and other end punctuation. Find and replace two spaces with one to fix them all at once.', link: LINKS.spacing }));
+      }
+    }
+  }
+
+  // ------------------------------------------------------------------ Checks: page header, title page, page breaks, headings
+  function checkStructure(model, st, opts, out) {
+    const els = model.elements;
+    // header
+    const withPage = model.headers.filter((h) => h.hasPage);
+    if (opts.sectionMode) { /* header checks apply to whole papers only */ }
+    else if (!withPage.length) out.push(issue({ rule: 'page-number', category: 'Title page and header', scope: 'doc', target: 'header',
+      title: 'No page numbers', fix: 'Insert an automatic page number in the top right corner of the header (Insert > Page Number > Top of Page).', link: LINKS.pageHeader }));
+    else if (!withPage.some((h) => h.jcs.includes('right') || h.tabs > 0)) out.push(issue({ rule: 'page-number-pos', category: 'Title page and header', scope: 'doc', target: 'header', severity: 'check',
+      title: 'Page number may not be in the top right', fix: 'Page numbers go in the top right corner of every page.', link: LINKS.pageHeader }));
+    const headerWords = model.headers.map((h) => h.text.replace(/\d+/g, '').trim()).filter((t) => /[A-Za-z]{3}/.test(t));
+    if (!opts.sectionMode && opts.paperType === 'student' && headerWords.length) out.push(issue({ rule: 'running-head', category: 'Title page and header', scope: 'doc', target: 'header', severity: 'check',
+      title: 'Running head on a student paper', detail: `Your header contains “${headerWords[0]}.”`,
+      fix: 'Student papers need only a page number in the header, unless your instructor asks for a running head. (If yours does, choose “professional paper” above.)', link: LINKS.pageHeader }));
+    if (!opts.sectionMode && opts.paperType === 'professional' && !headerWords.length) out.push(issue({ rule: 'running-head-missing', category: 'Title page and header', scope: 'doc', target: 'header',
+      title: 'No running head', fix: 'Professional papers need a shortened title in all capital letters at the top left of every page.', link: LINKS.pageHeader }));
+
+    // empty paragraph runs used as page breaks
+    let i = 0;
+    const emptyRuns = [];
+    while (i < els.length) {
+      const e = els[i];
+      if (e.kind === 'p' && e.empty && !e.inTable && !e.image) {
+        let j = i; while (j < els.length && els[j].kind === 'p' && els[j].empty && !els[j].inTable && !els[j].image) j++;
+        if (j - i >= 3) emptyRuns.push({ start: i, end: j - 1 });
+        i = j;
+      } else i++;
+    }
+    const firstText = els.findIndex((e) => e.kind === 'p' && !e.empty);
+    for (const r of emptyRuns) {
+      if (opts.converted) continue;
+      if (r.end < firstText) continue; // blank lines at the very top of the title page are fine
+      if (st.titleBreakKind === 'empties' && r.end === st.titleEnd) continue; // reported as a title-page break problem
+      const span = els.slice(r.start, r.end + 1);
+      if (span.some((e) => e.pageBreak || e.sectPr)) continue; // a real break is present; the blanks are harmless
+      const next = els.slice(r.end + 1).find((e) => e.kind === 'p' && !e.empty);
+      if (!next || opts.skipped(next.idx)) continue;
+      out.push(issue({ rule: 'empty-lines', category: 'Title page and header', scope: 'para', paras: [next.idx],
+        span: { para: next.idx, start: 0, end: Math.min(next.text.length, 60) }, emptyBefore: r.end - r.start + 1,
+        title: `${r.end - r.start + 1} blank lines before this text`,
+        detail: 'Pressing Enter repeatedly to reach a new page breaks as soon as anything above changes.',
+        fix: 'Delete the blank lines and insert a page break instead (Ctrl+Enter or Cmd+Enter, or Insert > Break > Page break).', link: LINKS.order }));
+    }
+
+    // title page
+    if (!opts.sectionMode) {
+      const tp = st.titlePage;
+      if (st.titleEnd >= 0 && tp.length) {
+        const title = tp.find((p) => words(p.text) >= 2) || tp[0];
+        st.title = norm(title.text);
+        if (st.titleBreakKind === 'empties' && !opts.converted) out.push(issue({ rule: 'title-break', category: 'Title page and header', scope: 'para', paras: [title.idx], span: { para: title.idx, start: 0, end: title.text.length },
+          title: 'The title page does not end with a page break', fix: 'Put a page break after the date so the paper starts on page 2 no matter what changes above it.', link: LINKS.titlePage }));
+        if (!title.allBold || !centered(title)) out.push(issue({ rule: 'title-format', category: 'Title page and header', scope: 'para', paras: [title.idx], span: { para: title.idx, start: 0, end: title.text.length },
+          title: `Title should be ${!title.allBold && !centered(title) ? 'bold and centered' : !title.allBold ? 'bold' : 'centered'}`, fix: 'The paper title is bold, centered, and in title case, three or four lines down from the top of the page.', link: LINKS.titlePage }));
+        const rest = tp.filter((p) => p !== title).map((p) => norm(p.text)).join(' | ');
+        const missing = [];
+        if (!/\b[A-Z]{2,4}[- ]?\d{3,4}\b/.test(rest)) missing.push('course number and name');
+        if (!/\b(Dr\.|Professor|Prof\.|Ph\.?D)/.test(rest)) missing.push('instructor name');
+        if (!/(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}|\d{1,2}\/\d{1,2}\/\d{2,4}/.test(rest)) missing.push('due date');
+        if (!/(University|College|Department|School)/i.test(rest)) missing.push('department and university');
+        if (missing.length) out.push(issue({ rule: 'title-elements', category: 'Title page and header', scope: 'para', severity: 'check', paras: [title.idx], span: { para: title.idx, start: 0, end: title.text.length },
+          title: 'Title page may be missing information', detail: `Lab Partner couldn’t find: ${missing.join('; ')}.`,
+          fix: 'A student title page has the title, your name, department and university, course number and name, instructor, and due date. If you included these in a form Lab Partner didn’t recognize, you’re fine.', link: LINKS.titlePage }));
+        // title repeated on first page of text
+        const firstText = els.slice(st.titleEnd + 1).find((e) => e.kind === 'p' && !e.empty);
+        if (firstText && /^abstract$/i.test(norm(firstText.text))) {
+          // look after the abstract's page break
+          const afterAbs = els.slice(firstText.idx + 1).find((e, k, arr) => e.kind === 'p' && !e.empty && (k > 0 && (arr[k - 1].pageBreak || arr[k - 1].sectPr) || e.pageBreakBefore));
+          if (afterAbs) checkRepeatTitle(afterAbs, st, out);
+        } else if (firstText) checkRepeatTitle(firstText, st, out);
+      } else if (!tp.length) {
+        out.push(issue({ rule: 'no-title-page', category: 'Title page and header', scope: 'doc', severity: 'check',
+          title: 'No title page found', fix: 'APA papers begin with a title page, then a page break. If your instructor didn’t ask for one, you can skip this.', link: LINKS.titlePage }));
+      }
+    }
+
+    // headings
+    for (const h of st.headings) {
+      if (opts.skipped(h.idx)) continue;
+      const p = els[h.idx];
+      if (/^introduction$/i.test(h.text)) out.push(issue({ rule: 'intro-heading', category: 'Headings', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: p.text.length },
+        title: 'No “Introduction” heading', detail: 'In APA style, the introduction is headed by the paper’s title, not the word “Introduction.”', fix: 'Replace this heading with your paper title (bold, centered).', link: LINKS.headings }));
+      else if (/^(methods|methodology)$/i.test(h.text)) out.push(issue({ rule: 'method-heading', category: 'Headings', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: norm(p.text).length },
+        title: 'This heading should read “Method”', detail: 'APA uses the singular, “Method,” for this section.', fix: 'Change the heading to “Method.”', link: LINKS.headings }));
+      if (h.known && !h.sub && h.level === 1 && (!p.allBold || !centered(p)) && !/^(works cited|references|bibliography|introduction)$/i.test(h.text)) out.push(issue({ rule: 'l1-format', category: 'Headings', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: p.text.length },
+        title: `“${h.text}” should be ${!p.allBold && !centered(p) ? 'bold and centered' : !p.allBold ? 'bold' : 'centered'}`,
+        detail: 'Major section labels (Abstract, Method, Results, Discussion, References) are Level 1 headings.', fix: 'Make this heading bold and centered, in title case.', link: LINKS.headings }));
+      if (h.sub && (!p.allBold || centered(p) || p.indFirst > 100)) out.push(issue({ rule: 'l2-format', category: 'Headings', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: p.text.length }, severity: 'check',
+        title: `“${h.text}” looks like a Level 2 heading`, detail: 'Subsections within a major section are usually Level 2 headings.',
+        fix: 'Level 2 headings are bold, flush left (no indent), and in title case, with the text starting on the next line.', link: LINKS.headings }));
+    }
+    // skipped levels
+    let prev = 1;
+    for (const h of st.headings) {
+      if (opts.skipped(h.idx) || h.known) { prev = h.level; continue; }
+      if (h.level > prev + 1) out.push(issue({ rule: 'skip-level', category: 'Headings', scope: 'para', severity: 'check', paras: [h.idx], span: { para: h.idx, start: 0, end: els[h.idx].text.length },
+        title: `This looks like a Level ${h.level} heading right after a Level ${prev}`, fix: 'Headings shouldn’t skip levels. Check whether this should be one level up.', link: LINKS.headings }));
+      prev = h.level;
+    }
+  }
+  function checkRepeatTitle(p, st, out) {
+    const key = (x) => norm(x).toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+    const t = key(p.text);
+    const lines = st.titlePage.map((x) => key(x.text));
+    const cands = new Set(lines);
+    for (let i = 0; i + 1 < lines.length; i++) cands.add((lines[i] + ' ' + lines[i + 1]).trim());
+    const same = t.length >= 8 && [...cands].some((c) => c && (c === t || (c.length >= 15 && (c.startsWith(t) || t.startsWith(c)))));
+    if (!same) {
+      out.push(issue({ rule: 'title-repeat', category: 'Title page and header', scope: 'para', severity: 'check', paras: [p.idx], span: { para: p.idx, start: 0, end: Math.min(p.text.length, 80) },
+        title: 'Paper title should appear at the top of the first page of text', detail: 'In APA style, the first page after the title page (or after the abstract) begins with the paper\u2019s full title, which serves as the heading for the introduction.', fix: 'Repeat your full title, bold and centered, above the first paragraph of the introduction.', link: LINKS.order }));
+    } else if (!p.allBold || !centered(p)) out.push(issue({ rule: 'title-repeat-format', category: 'Title page and header', scope: 'para', paras: [p.idx], span: { para: p.idx, start: 0, end: p.text.length },
+      title: 'Repeated title should be bold and centered', fix: 'Format the title at the top of page 2 the same way as on the title page.', link: LINKS.headings }));
+  }
+
+  // ------------------------------------------------------------------ Checks: body paragraphs (indents)
+  function checkParagraphs(model, st, opts, out) {
+    const refStart = st.refSec ? st.refSec.start : Infinity;
+    const headingIdx = new Set(st.headings.map((h) => h.idx));
+    const absIdx = st.headings.find((h) => /^abstract$/i.test(h.text));
+    let reported = 0, spaces = 0;
+    const noIndent = [];
+    for (const p of model.elements) {
+      if (p.kind !== 'p' || p.empty || p.inTable || p.idx <= st.titleEnd || p.idx >= refStart || headingIdx.has(p.idx) || opts.skipped(p.idx)) continue;
+      const t = p.text;
+      if (CAPTION.test(norm(t)) || /^note\./i.test(norm(t)) || p.numbered || t.length < 120) continue;
+      if (absIdx && p.idx === absIdx.idx + 1) continue; // abstract paragraph is not indented
+      if (/^ {2,}/.test(t)) {
+        if (spaces++ < 5) out.push(issue({ rule: 'indent-spaces', category: 'Spacing', scope: 'para', paras: [p.idx], span: { para: p.idx, start: 0, end: (t.match(/^ +/)[0].length) + 10 },
+          title: 'Indent made with spaces', fix: 'Delete the spaces and use a first-line indent of 0.5 inch instead (or the Tab key).', link: LINKS.alignment }));
+        continue;
+      }
+      if (/^\t/.test(t)) continue;
+      if (p.indFirst < 600 && !(p.indHanging > 0)) noIndent.push(p);
+    }
+    if (opts.converted) return;
+    if (noIndent.length) out.push(issue({ rule: 'indent-missing', category: 'Spacing', scope: 'para', paras: noIndent.map((p) => p.idx),
+      span: { para: noIndent[0].idx, start: 0, end: Math.min(60, noIndent[0].text.length) },
+      title: `${noIndent.length} paragraph${noIndent.length > 1 ? 's are' : ' is'} not indented 0.5 inch`,
+      fix: 'Indent the first line of every body paragraph 0.5 inch (Paragraph settings > Special: First line).', link: LINKS.alignment }));
+  }
+
+  // ------------------------------------------------------------------ Checks: references
+  const MONTHS = 'January|February|March|April|May|June|July|August|September|October|November|December|Spring|Summer|Fall|Winter';
+  function splitEntry(t) {
+    const m = new RegExp(`^(.*?)\\s*\\((\\d{4}[a-z]?|n\\.d\\.)(,\\s*(${MONTHS})(\\s+\\d{1,2}(\\u2013\\d{1,2})?)?)?\\)(\\.)?\\s*(.*)$`).exec(t);
+    if (!m) return null;
+    return { authors: m[1].trim(), year: m[2], periodAfterYear: !!m[7], rest: m[8] };
+  }
+  function firstSurname(authors) {
+    return (authors.split(/,|&/)[0] || '').trim();
+  }
+  const PARTICLE = /^(da|de|del|della|di|du|la|le|van|von|der|den|ten|ter)\s/i;
+  function checkReferences(model, st, opts, out) {
+    if (!st.refSec) return;
+    if (opts.sectionMode && !opts.sections.some((s) => /^(references|works cited|bibliography)$/i.test(s))) return;
+    const els = model.elements;
+    const h = els[st.refSec.start];
+    const raw = els.slice(st.refSec.start + 1, st.refSec.end + 1).filter((e) => e.kind === 'p' && !e.empty && !e.inTable);
+    // A stray Enter can split one entry into two paragraphs (often right before the DOI). Rejoin them.
+    // A new entry starts with an author: Surname, I. (one or two capitalized surname words, or a particle such as de or van),
+    // a surname followed by full first names (a common student error), or a group author followed closely by the date.
+    const U = 'A-Z\\u00C0-\\u00DE', L = "\\w\\u00DF-\\u024F'\\u2019-";
+    const PERSON = new RegExp(`^(?:(?:da|de|del|della|di|du|la|le|van|von|der|den|ten|ter)\\s+)?[${U}][${L}]+(?:[ -][${U}][${L}]+)?,\\s+(?:[${U}]\\.|[${U}][a-z\\u00DF-\\u024F]+(?:\\s(?:[${U}][a-z\\u00DF-\\u024F]+|[${U}]\\.))*[.,]?(?=\\s|$))`, 'i');
+    const startsEntry = (t) => PERSON.test(t) && /^[^,]*[A-Z\u00C0-\u00DE]/.test(t) || /^[A-Z\u00C0-\u00DE][^.()]{2,110}\.?\s*\((\d{4}[a-z]?|n\.d\.)/.test(t);
+    const entries = [];
+    const splitNotes = [];
+    for (const e of raw) {
+      const t = norm(e.text);
+      if (entries.length && !startsEntry(t)) {
+        const prev = entries[entries.length - 1];
+        splitNotes.push({ prev, e });
+        const base = prev.text.replace(/\s+$/, '');
+        const lead = e.text.length - e.text.replace(/^\s+/, '').length;
+        entries[entries.length - 1] = Object.assign({}, prev, { text: base + ' ' + e.text.trim(), merged: true,
+          segs: (prev.segs || [{ idx: prev.idx, off: 0, len: prev.text.length }]).concat([{ idx: e.idx, off: base.length + 1 - lead, len: e.text.length }]) });
+      } else entries.push(e);
+    }
+    const name = norm(h.text);
+    // MLA detection
+    const mlaLike = raw.filter((e) => /^[A-Z][\w'’-]+, [A-Z][a-z]+[ ,.]/.test(norm(e.text)) && !/^[A-Z][\w'’-]+, [A-Z]\./.test(norm(e.text)) || /[“"][^”"]+[.,]?[”"]/.test(e.text.slice(0, 200)) && !/\(\d{4}/.test(e.text.slice(0, 120)));
+    if (/works cited/i.test(name) || mlaLike.length >= Math.max(2, raw.length / 2)) {
+      out.push(issue({ rule: 'mla', category: 'References', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: h.text.length },
+        title: 'This reference list looks like MLA style, not APA',
+        detail: 'Signs include a “Works Cited” label, full first names, quotation marks around article titles, or the year near the end of each entry.',
+        fix: 'Rebuild the list in APA style: label it “References,” and give each entry the author’s surname and initials, the year in parentheses, the title in sentence case, and the source.', link: LINKS.purdueRefs }));
+      return;
+    }
+    for (const x of splitNotes) out.push(issue({ rule: 'ref-split', category: 'References', scope: 'para', paras: [x.e.idx], span: { para: x.e.idx, start: 0, end: Math.min(x.e.text.length, 50) },
+      title: 'This reference is split across two lines', detail: 'A stray Enter (or a pasted line break) broke one entry into two paragraphs, which also breaks its hanging indent.',
+      fix: 'Click at the end of the line above and press Delete so the entry is one paragraph again.', link: LINKS.refFormat }));
+    if (!/^references$/i.test(name)) out.push(issue({ rule: 'ref-label', category: 'References', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: h.text.length },
+      title: 'Label this page “References”', fix: 'APA reference lists are labeled “References” (bold, centered).', link: LINKS.refFormat }));
+    if (!h.allBold || !centered(h)) out.push(issue({ rule: 'ref-heading', category: 'References', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: h.text.length },
+      title: `“References” should be ${!h.allBold && !centered(h) ? 'bold and centered' : !h.allBold ? 'bold' : 'centered'}`, fix: 'The References label is bold and centered at the top of a new page.', link: LINKS.refFormat }));
+    // new page
+    let k = h.idx - 1;
+    while (k >= 0 && els[k].kind === 'p' && els[k].empty && !els[k].pageBreak && !els[k].sectPr) k--;
+    const breakBefore = h.pageBreakBefore || (k >= 0 && (els[k].pageBreak || els[k].sectPr)) || h.pageBreak && h.runs.length && /^\s*$/.test(h.runs[0].text);
+    if (!breakBefore) out.push(issue({ rule: 'ref-newpage', category: 'References', scope: 'para', paras: [h.idx], span: { para: h.idx, start: 0, end: h.text.length },
+      title: 'References should start on a new page', fix: 'Put a page break right before the References label.', link: LINKS.refFormat }));
+    // blank lines between entries
+    const blanks = els.slice(st.refSec.start + 1, st.refSec.end + 1).filter((e, i, arr) => e.kind === 'p' && e.empty && i > 0 && arr.slice(i + 1).some((x) => x.kind === 'p' && !x.empty));
+    if (blanks.length >= 2) out.push(issue({ rule: 'ref-blanks', category: 'References', scope: 'para', paras: [entries[0].idx], span: { para: entries[0].idx, start: 0, end: 30 },
+      title: 'Blank lines between reference entries', fix: 'Remove the empty lines; double spacing alone separates the entries.', link: LINKS.refFormat }));
+    // per entry
+    const parsed = [];
+    let caseFlags = 0, doiReminders = 0, italChecks = 0;
+    for (const e of entries) {
+      const t = norm(e.text);
+      // map a position in the (possibly rejoined) entry back to the paragraph that holds it
+      const sp = (s, en) => {
+        s = Math.max(0, s); en = Math.min(e.text.length, en);
+        const segs = e.segs || [{ idx: e.idx, off: 0, len: e.text.length }];
+        let g = segs[0];
+        for (const x of segs) if (s >= x.off) g = x;
+        return { para: g.idx, start: Math.max(0, s - g.off), end: Math.min(g.len, Math.max(s - g.off + 1, en - g.off)) };
+      };
+      if (!converted(opts) && !(e.indHanging >= 600 && e.indLeft >= 600)) out.push(issue({ rule: 'hanging', category: 'References', scope: 'para', paras: [e.idx], span: sp(0, 40),
+        title: 'No hanging indent', fix: 'Each entry’s first line is flush left and the following lines are indented 0.5 inch (Paragraph > Special: Hanging).', link: LINKS.refFormat }));
+      const parts = splitEntry(t);
+      if (!parts) {
+        out.push(issue({ rule: 'ref-year', category: 'References', scope: 'para', severity: 'check', paras: [e.idx], span: sp(0, 60),
+          title: 'Couldn’t find the date in parentheses', fix: 'After the author, the year goes in parentheses followed by a period: Smith, J. (2024). Use (n.d.) if there is no date.', link: LINKS.authors }));
+        parsed.push({ e, key: t.toLowerCase(), year: '' });
+        continue;
+      }
+      parsed.push({ e, key: parts.authors.toLowerCase(), first: firstSurname(parts.authors), year: parts.year, authors: parts.authors });
+      const a = parts.authors;
+      if (!parts.periodAfterYear) {
+        const yi = e.text.indexOf('(' + parts.year);
+        out.push(issue({ rule: 'year-period', category: 'References', scope: 'para', paras: [e.idx], span: sp(yi, yi + parts.year.length + 3),
+          title: 'Missing period after the date', fix: 'Put a period after the closing parenthesis: (2024).', link: LINKS.authors }));
+      }
+      if (a && !/[.?!]$/.test(a)) out.push(issue({ rule: 'author-period', category: 'References', scope: 'para', paras: [e.idx], span: sp(0, a.length + 1),
+        title: 'Add a period after the author', fix: 'The author element ends with a period, before the date: American Psychological Association. (2020).', link: LINKS.authors }));
+      const tight = /\b([A-Z])\.([A-Z])\./.exec(e.text.slice(0, a.length + 2));
+      if (tight) out.push(issue({ rule: 'initials-space', category: 'References', scope: 'para', paras: [e.idx], span: sp(tight.index, tight.index + tight[0].length),
+        title: 'Add a space between initials', fix: 'Write initials with a space between them: Smith, J. R.', link: LINKS.authors }));
+      // full names: "Surname, Firstname" not followed by initial
+      const full = /^([A-Z][\w'’-]+(?: [A-Z][\w'’-]+)?), ([A-Z][a-z]{2,})(?=[ ,.])/.exec(a);
+      if (full && !/^(Inc|Ltd|LLC|Association|Institute|Department|Center|Centre|Office)$/.test(full[2])) out.push(issue({ rule: 'full-names', category: 'References', scope: 'para', paras: [e.idx], span: sp(0, full[0].length),
+        title: 'Use initials, not first names', fix: 'APA reference entries give authors’ surnames and initials: Rowland, E. H.', link: LINKS.authors }));
+      const nAuthors = (a.match(/[A-Z][\w'’-]+,\s+(?:[A-Z]\.(?:\s?-?[A-Z]\.)*)/g) || []).length;
+      parsed[parsed.length - 1].n = Math.max(1, nAuthors) + (/\u2026|\.\.\./.test(a) ? 1 : 0);
+      if (nAuthors >= 2 && !/&/.test(a)) {
+        const andAt = a.search(/\band\b/);
+        out.push(issue({ rule: 'ampersand', category: 'References', scope: 'para', paras: [e.idx], span: sp(Math.max(0, andAt), andAt >= 0 ? andAt + 3 : 30),
+          title: 'Use “&” before the last author', fix: 'In the reference list, the last author is preceded by a comma and an ampersand: Smith, J., & Jones, K.', link: LINKS.authors }));
+      }
+      if (nAuthors >= 2 && /[^,] &/.test(a)) {
+        const amp = e.text.indexOf(' &');
+        out.push(issue({ rule: 'comma-amp', category: 'References', scope: 'para', paras: [e.idx], span: sp(amp - 3, amp + 2),
+          title: 'Add a comma before “&”', fix: 'Even with two authors, use a comma before the ampersand: Childs, E., & de Wit, H.', link: LINKS.authors }));
+      }
+      // DOI checks
+      const doiBad = /\bdoi:\s*10\.|dx\.doi\.org|http:\/\/(dx\.)?doi\.org/i.exec(e.text);
+      if (doiBad) out.push(issue({ rule: 'doi-format', category: 'References', scope: 'para', paras: [e.idx], span: sp(doiBad.index, doiBad.index + doiBad[0].length + 8),
+        title: 'DOI is in an older format', fix: 'Write DOIs as links: https://doi.org/10.xxxx/xxxxx', link: LINKS.doi }));
+      const retr = /retrieved from/i.exec(e.text);
+      if (retr && /doi\.org/.test(e.text)) out.push(issue({ rule: 'doi-retrieved', category: 'References', scope: 'para', paras: [e.idx], span: sp(retr.index, retr.index + retr[0].length),
+        title: 'Drop “Retrieved from” before a DOI', fix: 'Give the DOI by itself at the end of the entry.', link: LINKS.doi }));
+      const trail = /(https?:\/\/\S+?)\.\s*$/.exec(e.text.trim());
+      const trailAt = trail ? e.text.lastIndexOf(trail[1]) : -1;
+      if (trail) out.push(issue({ rule: 'doi-period', category: 'References', scope: 'para', paras: [sp(trailAt, trailAt + 1).para], span: sp(trailAt, trailAt + trail[1].length + 1),
+        title: 'No period after a DOI or URL', fix: 'Leave the period off the end of a DOI or URL, since it could be read as part of the link.', link: LINKS.doi }));
+      const journal = /,\s*\d+\s*\(\s*[\d–-]+\s*\)\s*,\s*[A-Za-z]?\d+/.test(parts.rest) || /,\s*\d+\s*,\s*\d+\s*[–-]\s*\d+/.test(parts.rest);
+      if (journal && !/doi|https?:\/\//i.test(parts.rest) && doiReminders < 8) {
+        doiReminders++;
+        out.push(issue({ rule: 'doi-missing', category: 'References', scope: 'para', severity: 'check', paras: [e.idx], span: sp(e.text.length - 25, e.text.length),
+          title: 'No DOI on this journal article', fix: 'Most journal articles have a DOI. Check the article’s page or search at doi.org before assuming this one doesn’t. If there truly is none, you’re fine.', link: LINKS.doi }));
+      }
+      const hyph = /,\s*[A-Za-z]?(\d+)-(\d+)\b/.exec(parts.rest);
+      if (hyph) {
+        const at = e.text.indexOf(hyph[0], e.text.indexOf(parts.rest.slice(0, 20)));
+        out.push(issue({ rule: 'page-dash', category: 'References', scope: 'para', paras: [e.idx], span: sp(at + 1, at + hyph[0].length),
+          title: 'Page range uses a hyphen', fix: 'Page ranges use an en dash (–), not a hyphen (Insert > Symbol, or Ctrl+minus on the number pad in Word).', link: LINKS.journal }));
+      }
+      // sentence case of the title (first segment after the date)
+      const titleSeg = (parts.rest.split(/(?<=[.?!])\s+(?=[A-Z])/)[0] || '').replace(/\[[^\]]*\]/g, '');
+      const tw = titleSeg.split(/\s+/);
+      let caps = 0;
+      for (let w = 1; w < tw.length; w++) {
+        const word = tw[w].replace(/^[("“‘]+|[)"”’,.;:?!]+$/g, '');
+        if (/:$|\?$/.test(tw[w - 1])) continue;
+        if (/^[A-Z][a-z]{3,}/.test(word) && !/^[A-Z]{2,}$/.test(word)) caps++;
+      }
+      if (caps >= 3 && caseFlags < 6) {
+        caseFlags++;
+        const at = e.text.indexOf(titleSeg.slice(0, 20));
+        out.push(issue({ rule: 'sentence-case', category: 'References', scope: 'para', severity: 'check', paras: [e.idx], span: sp(at, at + titleSeg.length),
+          title: 'Title may not be in sentence case', fix: 'For article and book titles, capitalize only the first word, the first word after a colon, and proper nouns. Journal names keep their capitals. If these are all proper nouns, you’re fine.', link: LINKS.sentenceCase }));
+      }
+      // italics: journal name and volume italic; issue and article title not; book titles italic
+      if (!converted(opts) && italChecks < 12) {
+        const firstLen = (e.segs ? e.segs[0].len : e.text.length);
+        const runs = (els[e.idx] && els[e.idx].runs) || [];
+        const italFrac = (s, en) => {
+          let tot = 0, it = 0;
+          for (let i = s; i < Math.min(en, firstLen); i++) {
+            if (!/\S/.test(e.text[i])) continue;
+            tot++; const r = runs.find((x) => i >= x.start && i < x.end); if (r && r.italic) it++;
+          }
+          return tot ? it / tot : null;
+        };
+        const yc = e.text.indexOf('(' + parts.year);
+        const after = yc >= 0 ? e.text.indexOf(')', yc) + 1 : -1;
+        if (after > 0 && after < firstLen) {
+          const tail = e.text.slice(after);
+          const lead = (/^\.?\s*/.exec(tail) || [''])[0].length;
+          const restOff = after + lead;
+          const restRaw = e.text.slice(restOff);
+          const tm = /^(.+?[.?!])\s+(?=[A-Z\[])/.exec(restRaw);
+          if (tm) {
+            const tS = restOff, tE = restOff + tm[1].length, sS = restOff + tm[0].length;
+            const src = e.text.slice(sS);
+            const jm = /^([^,]{3,}?),\s*(\d+)(\s*\(\s*[\d–-]+\s*\))?\s*,\s*(?:Article\s+\d+|[A-Za-z]?\d+)/.exec(src);
+            const chapter = /\bIn\s+(?:[A-Z]\.\s?)+/.test(src) || /\bIn\s+[A-Z][\w'’-]+\s+\(Eds?\.\)/.test(src);
+            const push = (rule, s, en, title, fix, severity) => { italChecks++; out.push(issue({ rule, category: 'References', scope: 'para', severity: severity || 'error', paras: [e.idx], span: sp(s, en), title, fix, link: LINKS.journal })); };
+            if (jm) {
+              const jS = sS, jE = sS + jm[1].length;
+              const vS = sS + jm[0].indexOf(jm[2], jm[1].length), vE = vS + jm[2].length;
+              const fj = italFrac(jS, jE), fv = italFrac(vS, vE), ft = italFrac(tS, tE);
+              if (fj !== null && fj < 0.8) push('ref-italic-journal', jS, jE, 'Italicize the journal name', 'In a journal article reference, the journal name and volume number are italic: Psychological Bulletin, 136(3).');
+              else if (fv !== null && fv < 0.8) push('ref-italic-volume', vS, vE, 'Italicize the volume number', 'The volume number is italic, like the journal name. The issue number in parentheses is not.');
+              if (jm[3]) { const iS = sS + jm[0].indexOf(jm[3].trim(), jm[1].length + jm[2].length), iE = iS + jm[3].trim().length; const fi = italFrac(iS, iE); if (fi !== null && fi > 0.5) push('ref-italic-issue', iS, iE, 'The issue number isn’t italic', 'Only the journal name and volume are italic. Leave the issue number and its parentheses in regular type: 136(3).'); }
+              if (ft !== null && ft > 0.5) push('ref-italic-title', tS, tE, 'Article titles aren’t italic', 'In a journal article reference, the article title is in regular type. The journal name is what gets italics.');
+            } else if (chapter) {
+              const bm = /\((?:Eds?\.)\),\s*(.+?)\s*\(pp?\./.exec(src);
+              if (bm) { const bS = sS + bm.index + bm[0].indexOf(bm[1]), bE = bS + bm[1].length; const fb = italFrac(bS, bE); if (fb !== null && fb < 0.8) push('ref-italic-book', bS, bE, 'Italicize the book title', 'In a chapter reference, the title of the edited book is italic; the chapter title is not.', 'check'); }
+              const ft2 = italFrac(tS, tE); if (ft2 !== null && ft2 > 0.5) push('ref-italic-title', tS, tE, 'Chapter titles aren’t italic', 'The chapter title is in regular type. The book title gets italics.');
+            } else if (/^[A-Z][^.]{2,80}\.?\s*(https?:\/\/\S+)?\s*$/.test(src.trim()) && !/https?:\/\//.test(src.split(/\s/)[0])) {
+              const ft3 = italFrac(tS, tE); if (ft3 !== null && ft3 < 0.5) push('ref-italic-book', tS, tE, 'This title may need italics', 'If this is a book (or a report or other stand-alone work), its title is italic. If it’s part of a larger work, you’re fine.', 'check');
+            }
+          }
+        }
+      }
+    }
+    st.refEntries = parsed;
+    // alphabetical order
+    const keyOf = (x) => (x.first || x.key).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/^(da|de|del|della|di|du|la|le|van|von|der|den|ten|ter)\s+/, '').replace(/[^a-z ]/g, '');
+    for (let n = 1; n < parsed.length; n++) {
+      const a = parsed[n - 1], b = parsed[n];
+      const ka = keyOf(a), kb = keyOf(b);
+      const particle = PARTICLE.test(a.first || '') || PARTICLE.test(b.first || '');
+      const outOfOrder = ka > kb || (ka === kb && (a.key || '') === (b.key || '') && a.year > b.year && !/n\.d\./.test(a.year + b.year));
+      const outLiteral = (a.first || a.key).toLowerCase() > (b.first || b.key).toLowerCase();
+      if (outOfOrder || (particle && outLiteral)) {
+        out.push(issue({ rule: 'alpha', category: 'References', scope: 'para', severity: particle ? 'check' : 'error', paras: [b.e.idx], span: { para: b.e.idx, start: 0, end: Math.min(30, b.e.text.length) },
+          title: 'Reference list is out of order here',
+          detail: particle ? 'This entry involves a surname with a prefix (such as da, de, or van). APA follows the convention for that name, which can go either way, so check how the author is usually listed.' : `“${(b.first || '').slice(0, 30)}” should come before “${(a.first || '').slice(0, 30)}.”`,
+          fix: 'Alphabetize by the first author’s surname, letter by letter. Works by the same author go in date order, oldest first.', link: LINKS.refOrder }));
+      }
+    }
+  }
+  function converted(opts) { return opts.converted; }
+
+  // ------------------------------------------------------------------ Checks: Method section
+  function checkMethod(model, st, opts, out) {
+    const els = model.elements;
+    const sec = st.sections.find((s) => /^(method|methods|methodology)$/i.test(s.name));
+    if (!sec || opts.skipped(sec.start)) return;
+    const head = els[sec.start];
+    const hspan = { para: head.idx, start: 0, end: head.text.length };
+    const subs = st.headings.filter((h) => h.idx > sec.start && h.idx <= sec.end && h.level >= 2);
+    const has = (re) => subs.find((h) => re.test(h.text));
+    const paras = els.slice(sec.start + 1, sec.end + 1).filter((e) => e.kind === 'p' && !e.empty && !e.inTable && !st.headings.some((h) => h.idx === e.idx));
+    const textOf = (from, to) => paras.filter((p) => p.idx > from && p.idx < to).map((p) => p.text).join(' ');
+    const methodText = paras.map((p) => p.text).join(' ');
+    const nextAfter = (h) => { const n = subs.find((x) => x.idx > h.idx); return n ? n.idx : sec.end + 1; };
+    // required subsections
+    const missing = [];
+    if (!has(/participants|sample|subjects/i)) missing.push('Participants');
+    if (!has(/materials|measures|apparatus|instruments|stimuli/i)) missing.push('Materials (or Measures)');
+    if (!has(/procedure/i)) missing.push('Procedure');
+    if (missing.length) out.push(issue({ rule: 'method-sub-missing', category: 'Method', scope: 'para', severity: 'check', paras: [head.idx], span: hspan,
+      title: `No ${missing.map((m) => '“' + m + '”').join(', ').replace(/, ([^,]*)$/, ' or $1')} subsection found`,
+      detail: 'A Method section is usually divided into subsections with Level 2 headings (bold, flush left), so readers can find who took part, what you used, and what happened.',
+      fix: `Add ${missing.length > 1 ? 'these subsections' : 'this subsection'} with a Level 2 heading. If your instructor asked for a different structure, follow that.`, link: LINKS.headings }));
+    // design
+    if (!has(/design/i)) {
+      const designWords = /between[- ]subjects|within[- ]subjects|between[- ]groups|repeated[- ]measures|mixed (design|model|factorial)|factorial|independent variables?|\bIVs?\b|manipulated|randomly assigned|random assignment|correlational (design|study)|quasi-experiment/i;
+      if (!designWords.test(methodText)) out.push(issue({ rule: 'design-missing', category: 'Method', scope: 'para', severity: 'check', paras: [head.idx], span: hspan,
+        title: 'Your study design isn’t described',
+        detail: 'Lab Partner couldn’t find a description of your design, such as your independent and dependent variables and whether the comparison was between or within subjects.',
+        fix: 'Describe the design somewhere in the Method, either in its own Design subsection or within Procedure (e.g., “The study used a between-subjects design with one independent variable, exercise condition”).', link: LINKS.order }));
+    }
+    // participants
+    const ph = has(/participants|sample|subjects/i);
+    const ptext = ph ? textOf(ph.idx, nextAfter(ph)) : methodText;
+    const pAnchor = ph ? { para: ph.idx, start: 0, end: els[ph.idx].text.length } : hspan;
+    const NUMW = '(?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)';
+    const lacks = [];
+    if (!(/\b[Nn]\s*=\s*\d/.test(ptext) || new RegExp(`\\b${NUMW}(?:[- ]${NUMW})?\\s+(?:\\w+\\s+){0,3}(participants|subjects|students|undergraduates|adults|people|individuals|children|respondents|volunteers)`, 'i').test(ptext))) lacks.push('how many participants there were');
+    if (!/\bage[ds]?\b|years old|years of age|\byears\b/i.test(ptext)) lacks.push('their ages');
+    if (!/\b(wom[ae]n|m[ae]n|females?|males?|gender|sex|non-?binary|boys|girls)\b/i.test(ptext)) lacks.push('their gender');
+    if (lacks.length) out.push(issue({ rule: 'demographics', category: 'Method', scope: 'para', severity: 'check', paras: [pAnchor.para], span: pAnchor,
+      title: 'Participant description may be incomplete', detail: `Lab Partner couldn’t find ${lacks.join(', ').replace(/, ([^,]*)$/, ' or $1')}.`,
+      fix: 'Describe your sample: how many people took part, their ages (a mean and standard deviation or a range), their gender, and any other characteristics that matter for your study.', link: LINKS.order }));
+    if (!/credit|\bSONA\b|compensat|\bpaid\b|payment|\$\s?\d|gift card|volunteer|incentive|reward|raffle|lottery/i.test(ptext + ' ' + methodText)) out.push(issue({ rule: 'incentives', category: 'Method', scope: 'para', severity: 'check', paras: [pAnchor.para], span: pAnchor,
+      title: 'No mention of what participants received', detail: 'Readers want to know why people took part, since incentives can affect who signs up.',
+      fix: 'Say how participants were recruited and what they received, if anything (e.g., “participants received course credit through SONA” or “participated voluntarily without compensation”).', link: LINKS.order }));
+    if (!/\bIRB\b|institutional review|consent|debrief|ethic|approv/i.test(ptext + ' ' + methodText)) out.push(issue({ rule: 'ethics', category: 'Method', scope: 'para', severity: 'check', paras: [pAnchor.para], span: pAnchor,
+      title: 'No mention of ethical treatment', detail: 'Research papers note that participants were treated ethically.',
+      fix: 'Mention IRB approval, informed consent, and debriefing, in whichever subsection fits (often Participants or Procedure).', link: LINKS.order }));
+    // scale descriptions: judge the measure where it is described (the Materials or Measures subsection, or the first paragraph that names it)
+    const SCALE = /\b(scale|questionnaire|inventory|survey|index|checklist)\b/i;
+    const msub = has(/materials|measures|apparatus|instruments|stimuli/i);
+    const region = msub ? paras.filter((p) => p.idx > msub.idx && p.idx < nextAfter(msub)) : (() => {
+      const k = paras.findIndex((p) => SCALE.test(p.text)); return k < 0 ? [] : paras.slice(k, k + 2);
+    })();
+    const first = region.find((p) => SCALE.test(p.text) && !opts.skipped(p.idx));
+    if (first) {
+      const t = region.map((p) => p.text).join(' ');
+      const m = SCALE.exec(first.text);
+      const at = { para: first.idx, start: m.index, end: m.index + m[0].length };
+      const parts = [
+        ['scale-items', new RegExp(`\\b${NUMW}[- ](item|question|statement)s?\\b`, 'i').test(t), 'the number of items', 'how many items (questions) the measure has'],
+        ['scale-anchors', /\b\d\s*(\(|\[|=)\s*[A-Za-z]/.test(t) || /\bfrom\s+\d+\s*\(?\s*[a-z]/i.test(t), 'the response scale', 'the response scale with its anchors, e.g., 1 (strongly disagree) to 7 (strongly agree)'],
+        ['scale-sample', /[\u201C"][^\u201D"]{10,}[\u201D"]/.test(t), 'a sample item', 'one sample item in quotation marks'],
+        ['scale-citation', /\([^()]*\b(1[89]|20)\d{2}[a-z]?\)|\b[A-Z][\w'\u2019-]+(?: et al\.| (?:and|&) [A-Z][\w'\u2019-]+)? \((1[89]|20)\d{2}[a-z]?\)/.test(t), 'a citation', 'a citation for where the measure comes from'],
+      ];
+      for (const [rule, ok, short, long] of parts) if (!ok) out.push(issue({ rule, category: 'Method', scope: 'para', severity: 'check', paras: [first.idx], span: at,
+        title: `This measure\u2019s description may be missing ${short}`,
+        detail: `A full description of a scale includes the number of items, the response scale, a sample item, and a citation. Lab Partner couldn\u2019t find ${long}.`,
+        fix: `Add ${long}. If you created the measure yourself, say so instead of citing it. If you\u2019ve included this in a form Lab Partner didn\u2019t recognize, you\u2019re fine.`, link: LINKS.order }));
+    }
+  }
+
+  // ------------------------------------------------------------------ Checks: in-text citations
+  const surnameKey = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\[[^\]]*\]/g, '')
+    .replace(/^(da|de|del|della|di|du|la|le|van|von|der|den|ten|ter)\s+/, '').replace(/[^a-z]/g, '');
+  function checkCitations(model, st, opts, out) {
+    const els = model.elements;
+    const refStart = st.refSec ? st.refSec.start : Infinity;
+    const headingIdx = new Set(st.headings.map((h) => h.idx));
+    const refs = (st.refEntries || []).filter((r) => r.first && r.year);
+    const cited = new Set();
+    const counts = {};
+    const cap = (k, n) => { counts[k] = (counts[k] || 0) + 1; return counts[k] <= n; };
+    const YEAR = '(?:\\d{4}[a-z]?|n\\.d\\.|in press)';
+    const findRef = (first, year) => {
+      const k = surnameKey(first);
+      const same = refs.filter((r) => surnameKey(r.first) === k);
+      return { exact: same.find((r) => r.year.replace(/[a-z]$/, '') === String(year).replace(/[a-z]$/, '') && (r.year === year || !/[a-z]$/.test(year))), any: same[0] };
+    };
+    const push = (o) => out.push(issue(Object.assign({ category: 'Citations', scope: 'para' }, o)));
+    const checkOne = (p, at, len, authors, year, etal, nNames, narrative) => {
+      const first = authors.replace(/\s+et al\.?/, '').split(/,|&|\band\b/)[0].trim();
+      if (!/^(?:(?:da|de|del|della|di|du|la|le|van|von|der|den|ten|ter)\s+)?[A-ZÀ-Þ]/.test(first) || /personal communication/i.test(authors)) return;
+      const span = { para: p.idx, start: at, end: at + len };
+      if (!refs.length) return;
+      const { exact, any } = findRef(first, year);
+      if (exact) {
+        cited.add(exact);
+        if (exact.n >= 3 && !etal && nNames >= 2 && cap('etal1', 6)) push({ rule: 'cite-etal-needed', paras: [p.idx], span,
+          title: 'Use “et al.” for three or more authors', detail: `Your reference list shows ${exact.n} or more authors for this source.`,
+          fix: `Cite only the first author followed by “et al.”, every time, starting with the first citation: ${first} et al. (${year}).`, link: LINKS.citeAuthors });
+        if (exact.n <= 2 && etal && cap('etal2', 6)) push({ rule: 'cite-etal-wrong', paras: [p.idx], span,
+          title: '“et al.” is only for three or more authors', detail: `Your reference list shows ${exact.n === 1 ? 'one author' : 'two authors'} for this source.`,
+          fix: exact.n === 1 ? `Cite the single author: ${first} (${year}).` : 'Name both authors every time, joined by “and” in a sentence or “&” inside parentheses.', link: LINKS.citeAuthors });
+      } else if (any) {
+        cited.add(any);
+        if (cap('year', 6)) push({ rule: 'cite-year-mismatch', paras: [p.idx], span,
+          title: 'Year doesn’t match the reference list', detail: `Your reference list has ${any.first} (${any.year}).`,
+          fix: 'Make the year in the citation match the year in the reference entry, and check which one is correct.', link: LINKS.citeBasics });
+      } else if (cap('noref', 8)) push({ rule: 'cite-no-ref', paras: [p.idx], span, severity: 'check',
+        title: 'Lab Partner couldn’t find this source in your reference list', detail: `There’s no reference entry for ${first} (${year}).`,
+        fix: 'Every source you cite needs an entry in the reference list, spelled the same way and with the same year. (Personal communications are the exception.) If the name is spelled differently in one place, fix whichever is wrong.', link: LINKS.citeBasics });
+    };
+    for (const p of els) {
+      if (p.kind !== 'p' || p.empty || p.inTable || p.idx <= st.titleEnd || p.idx >= refStart || headingIdx.has(p.idx) || opts.skipped(p.idx)) continue;
+      const t = p.text;
+      let m;
+      // parenthetical citations: (Author, 2020; Author & Author, 2019, p. 4)
+      const PAREN = new RegExp(`\\(([^()]*?\\b${YEAR}[^()]*?)\\)`, 'g');
+      while ((m = PAREN.exec(t))) {
+        const inner = m[1];
+        if (/[=<>]/.test(inner) || !/[A-Z]/.test(inner)) continue;
+        const base = m.index + 1;
+        // two sources joined by a comma instead of a semicolon
+        if (new RegExp(`${YEAR}[a-z]?,\\s+[A-Z][\\w'\\u2019-]+(?:\\s(?:et al\\.|&|and)\\s?[\\w'\\u2019-]*)?,\\s+${YEAR}`).test(inner) && cap('semi', 4)) push({ rule: 'cite-semicolon', paras: [p.idx], span: { para: p.idx, start: m.index, end: m.index + m[0].length },
+          title: 'Separate sources with semicolons', fix: 'Inside one set of parentheses, separate different sources with semicolons: (Fox, 2000; Hong & Ahmad, 2024).', link: LINKS.citeBasics });
+        const pieces = inner.split(';');
+        let off = 0;
+        const firsts = [];
+        for (const raw of pieces) {
+          const lead = raw.length - raw.replace(/^\s+/, '').length;
+          let piece = raw.trim();
+          const pAt = base + off + lead;
+          off += raw.length + 1;
+          piece = piece.replace(/^(see also|see|e\.g\.,?|cf\.|i\.e\.,?)\s+/i, '');
+          if (/as cited in/i.test(piece)) piece = piece.replace(/^.*as cited in\s+/i, '');
+          const cm = new RegExp(`^(.+?)(,?)\\s+(${YEAR}(?:,\\s*${YEAR})*)(?:,\\s*(?:pp?\\.|para\\.|chapter|Chapter|Table|Figure)\\s*[\\w–-]+)?\\.?$`).exec(piece);
+          if (!cm) continue;
+          const authors = cm[1].trim();
+          if (!/^(?:(?:da|de|del|della|di|du|la|le|van|von|der|den|ten|ter)\s+)?[A-ZÀ-Þ]/.test(authors) || authors.split(/\s+/).length > 12) continue;
+          const len = raw.trim().length;
+          if (!cm[2] && !/et al\.$/.test(authors) && cap('comma', 4)) push({ rule: 'cite-comma', paras: [p.idx], span: { para: p.idx, start: pAt, end: pAt + len },
+            title: 'Add a comma before the year', fix: 'Inside parentheses, put a comma between the author and the year: (Fox, 2000).', link: LINKS.citeBasics });
+          if (/\band\b/.test(authors) && cap('and', 4)) push({ rule: 'cite-and', paras: [p.idx], span: { para: p.idx, start: pAt, end: pAt + len },
+            title: 'Use “&” inside parentheses', fix: 'Inside parentheses, join authors’ names with an ampersand: (Walker & Stickgold, 2006). In a sentence, use “and.”', link: LINKS.citeBasics });
+          const etal = /et al/.test(authors);
+          const nNames = authors.replace(/\s+et al\.?/, '').split(/,|&|\band\b/).filter((x) => x.trim()).length;
+          firsts.push({ name: authors.split(/,|&|\band\b/)[0].trim(), at: pAt, len });
+          for (const yr of cm[3].split(/,\s*/)) checkOne(p, pAt, len, authors, yr, etal, nNames, false);
+        }
+        for (let k = 1; k < firsts.length; k++) if (surnameKey(firsts[k].name) < surnameKey(firsts[k - 1].name) && cap('order', 4)) {
+          push({ rule: 'cite-order', paras: [p.idx], span: { para: p.idx, start: m.index, end: m.index + m[0].length },
+            title: 'List sources in alphabetical order', detail: `“${firsts[k].name}” should come before “${firsts[k - 1].name}.”`,
+            fix: 'When you cite several sources in one set of parentheses, list them in the same order as your reference list (alphabetical by first author).', link: LINKS.citeBasics });
+          break;
+        }
+      }
+      // narrative citations: Author (2020), Author and Author (2020), Author et al. (2020)
+      const NAME = "[A-Z\\u00C0-\\u00DE][\\w\\u00C0-\\u024F'\\u2019-]+";
+      const NARR = new RegExp(`(?:\\b(?:de|van|von|da|del|di|du|la|le)\\s)?(${NAME}(?:,\\s+${NAME})*(?:,?\\s+(?:and|&)\\s+(?:(?:de|van|von|da)\\s)?${NAME})?(?:\\s+et al\\.)?)\\s+\\((${YEAR}(?:,\\s*${YEAR})*)(?:,\\s*(?:pp?\\.)\\s*[\\d\\u2013-]+)?\\)`, 'g');
+      while ((m = NARR.exec(t))) {
+        const authors = m[1];
+        if (/^(In|The|This|That|These|Those|A|An|As|For|By|From|Since|After|Before|During|On|At|Study|Table|Figure|Appendix|Experiment|Phase|Wave|Time|Year)$/.test(authors)) continue;
+        const sp = { para: p.idx, start: m.index, end: m.index + m[0].length };
+        if (/&/.test(authors) && cap('ampn', 4)) push({ rule: 'cite-amp-narrative', paras: [p.idx], span: sp,
+          title: 'Use “and” in a sentence', fix: 'When authors’ names are part of your sentence, join them with “and”: Lim and Dinges (2010) found. Save “&” for inside parentheses.', link: LINKS.citeBasics });
+        const etal = /et al/.test(authors);
+        const nNames = authors.replace(/\s+et al\.?/, '').split(/,|&|\band\b/).filter((x) => x.trim()).length;
+        for (const yr of m[2].split(/,\s*/)) checkOne(p, m.index, m[0].length, authors, yr, etal, nNames, true);
+      }
+      // direct quotations need a page number
+      const Q = /[“"]([^”"]{20,})[”"]/g;
+      while ((m = Q.exec(t))) {
+        const qw = m[1].split(/\s+/);
+        if (qw.length < 5) continue;
+        const longW = qw.filter((x) => x.length > 3);
+        if (longW.length && longW.filter((x) => /^[A-Z]/.test(x)).length / longW.length > .6) continue; // a quoted title, not a quotation
+        const after = t.slice(m.index + m[0].length, m.index + m[0].length + 90);
+        const pc = /^\s*[,.]?\s*\(([^()]*)\)/.exec(after) || /^[^()]{0,40}\(([^()]*\d{4}[^()]*)\)/.exec(after);
+        if (pc && new RegExp(YEAR).test(pc[1]) && !/\b(pp?\.|para\.|paras\.|\d+:\d+)/.test(pc[1]) && cap('qpage', 4)) push({ rule: 'quote-page', paras: [p.idx], span: { para: p.idx, start: m.index, end: m.index + m[0].length + pc.index + pc[0].length },
+          title: 'Quotation needs a page number', fix: 'After a direct quotation, give the page number with the citation: (Smith, 2020, p. 14). For sources without pages, use a paragraph number (para. 3).', link: LINKS.quotations });
+      }
+    }
+    // every reference should be cited somewhere (only when the whole paper was checked)
+    if (!opts.sectionMode && refs.length && cited.size) {
+      for (const r of refs) if (!cited.has(r) && cap('uncited', 6)) push({ rule: 'ref-uncited', paras: [r.e.idx], span: { para: r.e.idx, start: 0, end: Math.min(40, r.e.text.length) }, severity: 'check',
+        title: 'Lab Partner couldn’t find where you cite this source', detail: 'Every entry in the reference list should be cited at least once in your paper.',
+        fix: 'Cite this source where you use it, or remove it from the list. If you cite it under a different spelling or year, make the two match.', link: LINKS.citeBasics });
+    }
+  }
+
+  // ------------------------------------------------------------------ Checks: statistics
+  const STAT_SYM = /(?<![A-Za-zͰ-Ͽ])(M|SD|SE|t|F|p|r|n|N|d|df|R2|R²|z|U|W)(?=\s*(?:\(\s*\d|=|<|>|≤|≥))/g;
+  function italicAt(p, i) {
+    const r = p.runs.find((x) => i >= x.start && i < x.end);
+    return r ? r.italic : false;
+  }
+  function checkStatistics(model, st, opts, out) {
+    const refStart = st.refSec ? st.refSec.start : Infinity;
+    const counts = {};
+    const cap = (k, n) => { counts[k] = (counts[k] || 0) + 1; return counts[k] <= n; };
+    for (const p of model.elements) {
+      if (p.kind !== 'p' || p.empty || p.idx <= st.titleEnd || p.idx >= refStart || opts.skipped(p.idx)) continue;
+      const t = p.text;
+      const sp = (s, e) => ({ para: p.idx, start: s, end: e });
+      // italic symbols
+      STAT_SYM.lastIndex = 0;
+      let m;
+      const seen = new Set();
+      while ((m = STAT_SYM.exec(t))) {
+        const sym = m[1];
+        if (/^(n|d|r|U|W|z)$/.test(sym) && !/[=<>]/.test(t.slice(m.index, m.index + 12))) continue;
+        if (!italicAt(p, m.index) && !seen.has(sym)) {
+          seen.add(sym);
+          if (cap('ital', 10)) out.push(issue({ rule: 'stat-italic', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + sym.length),
+            title: `Italicize the statistical symbol “${sym}”`, fix: 'Statistical symbols written with Latin letters (M, SD, t, F, p, r, n, d) are italicized. Greek letters such as η are not.', link: LINKS.statsFormat }));
+        }
+      }
+      // leading zeros
+      const lz = /(?<![A-Za-z])(p|r|r_s|η\s?[²p2]?|ηp²|α|β|R²|R2)(\s*\([^)]{0,15}\))?\s*([=<>])\s*0\.\d+/g;
+      while ((m = lz.exec(t))) if (cap('lz', 8)) out.push(issue({ rule: 'leading-zero', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length),
+        title: 'Drop the leading zero', detail: `Values that can’t be greater than 1 (like p, r, and η²) don’t take a zero before the decimal.`, fix: 'Write p = .483, not p = 0.483. Values that can exceed 1 (like M, SD, or d) keep the zero.', link: LINKS.stats }));
+      const lz2 = /(?<![A-Za-z])(M|SD|d|t|F)\s*=\s*-?\.\d/g;
+      while ((m = lz2.exec(t))) if (cap('lz2', 4)) out.push(issue({ rule: 'needs-zero', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length),
+        title: 'Add a zero before the decimal', fix: 'Values that can be greater than 1 (M, SD, t, F, d) take a leading zero: d = 0.52.', link: LINKS.stats }));
+      // p = .000
+      const pz = /(?<![A-Za-z])p\s*=\s*0?\.000\b/g;
+      while ((m = pz.exec(t))) out.push(issue({ rule: 'p-000', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length),
+        title: 'A p value can’t be zero', detail: 'Software rounds very small p values to .000, but the probability is never actually zero.', fix: 'Write p < .001 instead.', link: LINKS.stats }));
+      // spaces around operators
+      const spc = /(?<![A-Za-z])(M|SD|t|F|p|r|n|N|d|df|η²|ηp²|χ²)(\([^)]{0,15}\))?(\s*)([=<>])(\s*)(?=[-.\d])/g;
+      while ((m = spc.exec(t))) {
+        if (m[3] && m[5]) continue;
+        if (cap('space', 6)) out.push(issue({ rule: 'stat-spacing', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length + 3),
+          title: 'Put spaces around =, <, and >', fix: 'Write N = 28 and p < .001, with a space on each side of the symbol.', link: LINKS.statsFormat }));
+      }
+      // df missing
+      const nodf = /(?<![A-Za-z])(t|F|χ²)\s*=\s*-?\d/g;
+      while ((m = nodf.exec(t))) if (cap('df', 4)) out.push(issue({ rule: 'df', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length + 3), severity: 'check',
+        title: 'Include degrees of freedom', fix: 'Put degrees of freedom in parentheses right after the symbol: t(28) = 2.10 or F(3, 24) = 17.20.', link: LINKS.statsFormat }));
+      // p < .05 instead of exact
+      const p05 = /(?<![A-Za-z])p\s*<\s*0?\.0[15]\b/g;
+      while ((m = p05.exec(t))) if (cap('p05', 4)) out.push(issue({ rule: 'p-exact', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length), severity: 'check',
+        title: 'Report the exact p value', fix: 'APA asks for exact p values to two or three decimals (p = .032), except p < .001 for very small values.', link: LINKS.stats }));
+      // nested parentheses with statistics
+      const nest = /\([^()]*\([^()]*\)[^()]*\)/g;
+      while ((m = nest.exec(t))) if (/[=<>]/.test(m[0]) && cap('nest', 3)) out.push(issue({ rule: 'nested-parens', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index, m.index + m[0].length), severity: 'check',
+        title: 'Parentheses inside parentheses', fix: 'Inside parentheses, use square brackets for the inner set: (as shown in a previous study [F(2, 57) = 4.31, p = .018]).', link: LINKS.statsFormat }));
+      // sentence starting with a numeral
+      if (!p.inTable && !CAPTION.test(norm(t)) && t.length > 40) {
+        const sn = /(?:^|[.!?]\s+)(\d[\d,.%]*)\s+[a-z]/g;
+        while ((m = sn.exec(t))) if (cap('numstart', 3)) out.push(issue({ rule: 'number-start', category: 'Statistics', scope: 'para', paras: [p.idx], span: sp(m.index + m[0].indexOf(m[1]), m.index + m[0].length), severity: 'check',
+          title: 'Sentence begins with a numeral', fix: 'Spell out a number that begins a sentence, or reword so the number comes later.', link: LINKS.numbers }));
+      }
+    }
+  }
+
+  // ------------------------------------------------------------------ Main
+  async function check(buf, env) {
+    ISSUE_ID = 0;
+    const opts = Object.assign({ paperType: 'student', sections: null }, env || {});
+    const model = await parse(buf, opts);
+    const st = structure(model);
+    opts.converted = looksConverted(model);
+    opts.sectionMode = Array.isArray(opts.sections) && opts.sections.length > 0;
+    const allowed = [];
+    if (opts.sectionMode) for (const s of st.sections) if (opts.sections.some((n) => n.toLowerCase() === s.name.toLowerCase())) allowed.push([s.start, s.end]);
+    opts.skipped = (i) => opts.sectionMode && !allowed.some(([a, b]) => i >= a && i <= b);
+    const out = [];
+    if (opts.converted) out.push(issue({ rule: 'converted', category: 'Page setup', scope: 'doc', severity: 'info',
+      title: 'This file looks like it was converted from a PDF',
+      detail: 'Converted files carry odd margins, section breaks, and spacing that you didn’t create, so Lab Partner has skipped margin, spacing, and indent checks.',
+      fix: 'For a full check, upload the original Word file (or download your Google Doc as .docx).' }));
+    checkDocument(model, st, opts, out);
+    checkStructure(model, st, opts, out);
+    checkParagraphs(model, st, opts, out);
+    checkReferences(model, st, opts, out);
+    checkCitations(model, st, opts, out);
+    checkMethod(model, st, opts, out);
+    checkStatistics(model, st, opts, out);
+    const paragraphs = model.elements.map((e) => ({ idx: e.idx, kind: e.kind, text: e.text || '', inTable: !!e.inTable, image: !!e.image, jc: e.jc, bold: !!e.allBold,
+      empty: !!e.empty, pageBreak: !!(e.pageBreak || e.sectPr), pageBreakBefore: !!e.pageBreakBefore, line: e.line || 240, lineRule: e.lineRule || 'auto',
+      indFirst: e.indFirst || 0, indLeft: e.indLeft || 0, indHanging: e.indHanging || 0, row: e.row, col: e.col, cols: e.cols, heading: (st.headings.find((h) => h.idx === e.idx) || {}).level || 0,
+      before: e.before || 0, after: e.after || 0,
+      runs: (e.runs || []).map((r) => ({ start: r.start, end: r.end, bold: r.bold, italic: r.italic, font: r.font || null, size: r.size || null })) }));
+    // header shown on the sheet: prefer the one with a page number, else any with text
+    const hdr = model.headers.find((h) => h.hasPage && h.text) || model.headers.find((h) => h.hasPage) || model.headers.find((h) => h.text) || null;
+    const sec0 = model.sects.find((x) => x.top !== undefined) || {};
+    return {
+      issues: out,
+      sections: st.sections.map((s) => ({ name: s.name, start: s.start, end: s.end, opening: !!s.opening })),
+      headings: st.headings, titleEnd: st.titleEnd, converted: opts.converted, paragraphs,
+      header: hdr ? { text: hdr.text.replace(/\d+$/, '').trim(), hasPage: hdr.hasPage, right: hdr.jcs.includes('right') || hdr.tabs > 0 } : null,
+      margins: opts.converted ? null : { top: sec0.top, bottom: sec0.bottom, left: sec0.left, right: sec0.right },
+    };
+  }
+
+  const api = { check, LINKS };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.LabPartnerEngine = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function () {
+'use strict';
+const SAMPLE_B64 = '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';
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---------------------------------------------------------------- Goldie (an original cartoon golden retriever in safety goggles)
+function goldie(mood) {
+  const mouth = mood === 'think'
+    ? '<path d="M50 70 q6 2 12 -1" stroke="#3A2210" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
+    : mood === 'yay'
+      ? '<path d="M42 66 q14 14 28 0" stroke="#3A2210" stroke-width="2.4" fill="#7A2E2E"/><path d="M50 72 q6 8 12 0 z" fill="#E77C8A"/>'
+      : '<path d="M44 67 q12 10 24 0" stroke="#3A2210" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M53 71 q3 9 7 0" fill="#E77C8A"/>';
+  const brow = mood === 'think' ? '<path d="M33 36 l12 -3" stroke="#3A2210" stroke-width="2" stroke-linecap="round"/>' : '';
+  return '<svg viewBox="0 0 112 112" role="img" aria-label="Goldie the golden retriever"><title>Goldie</title>' +
+    '<circle cx="56" cy="58" r="50" fill="#0E2C5C"/>' +
+    '<path d="M22 34 q-12 18 -4 44 q8 6 16 -2 q2 -24 4 -36 z" fill="#B97A26"/>' +
+    '<path d="M90 34 q12 18 4 44 q-8 6 -16 -2 q-2 -24 -4 -36 z" fill="#B97A26"/>' +
+    '<ellipse cx="56" cy="54" rx="32" ry="34" fill="#E3A94B"/>' +
+    '<ellipse cx="56" cy="68" rx="18" ry="14" fill="#F3CD8A"/>' +
+    '<rect x="24" y="38" width="64" height="5" rx="2.5" fill="#1D4E9E"/>' +
+    '<rect x="30" y="34" width="22" height="16" rx="7" fill="#BFE0FF" fill-opacity=".85" stroke="#1D4E9E" stroke-width="2.5"/>' +
+    '<rect x="60" y="34" width="22" height="16" rx="7" fill="#BFE0FF" fill-opacity=".85" stroke="#1D4E9E" stroke-width="2.5"/>' +
+    '<circle cx="41" cy="42" r="3.6" fill="#2A1A0C"/><circle cx="71" cy="42" r="3.6" fill="#2A1A0C"/>' +
+    '<circle cx="42.3" cy="40.8" r="1.1" fill="#FFFFFF"/><circle cx="72.3" cy="40.8" r="1.1" fill="#FFFFFF"/>' +
+    '<ellipse cx="56" cy="60" rx="6.5" ry="4.8" fill="#2A1A0C"/>' + mouth + brow +
+    '</svg>';
+}
+function paintGoldies(root) { (root || document).querySelectorAll('[data-goldie]').forEach((el) => { el.innerHTML = goldie(el.dataset.goldie); }); }
+$('#logo').innerHTML = goldie('happy');
+paintGoldies();
+
+// ---------------------------------------------------------------- Answer choices
+const LABEL = {
+  'margins': 'Margins aren’t 1 inch', 'font-novelty': 'Hard-to-read font', 'font-size': 'Font size too small or too large',
+  'font-consistency': 'Font doesn’t match the rest of the paper', 'font-consistency-more': 'Font doesn’t match the rest of the paper',
+  'line-spacing': 'Not double spaced', 'para-spacing': 'Extra space between paragraphs', 'justified': 'Text is justified',
+  'double-space': 'Two spaces after a sentence', 'page-number': 'No page numbers', 'page-number-pos': 'Page number in the wrong place',
+  'running-head': 'Running head on a student paper', 'running-head-missing': 'Missing running head', 'empty-lines': 'Blank lines used instead of a page break',
+  'title-break': 'No page break after the title page', 'title-format': 'Title isn’t bold and centered', 'title-elements': 'Title page missing information',
+  'title-repeat': 'Title not repeated on the first page of text', 'title-repeat-format': 'Repeated title isn’t bold and centered', 'no-title-page': 'No title page',
+  'intro-heading': 'Unnecessary “Introduction” heading', 'method-heading': 'Section should be called “Method”', 'l1-format': 'Section heading isn’t bold and centered',
+  'l2-format': 'Subsection heading formatted incorrectly', 'skip-level': 'A heading level is skipped', 'indent-spaces': 'Indent made with spaces',
+  'indent-missing': 'First line not indented 0.5 inch', 'mla': 'Reference list is in MLA style', 'ref-label': 'Reference page labeled incorrectly',
+  'ref-heading': '“References” isn’t bold and centered', 'ref-newpage': 'References don’t start on a new page', 'ref-blanks': 'Blank lines between references',
+  'hanging': 'Missing hanging indent', 'ref-year': 'Date missing or not in parentheses', 'year-period': 'Missing period after the date', 'author-period': 'Missing period after the author',
+  'initials-space': 'No space between initials', 'full-names': 'First names instead of initials', 'ampersand': '“and” where “&” belongs',
+  'comma-amp': 'Missing comma before “&”', 'doi-format': 'DOI in an outdated format', 'doi-retrieved': 'Unneeded “Retrieved from”',
+  'doi-period': 'Period after a DOI or URL', 'doi-missing': 'Missing DOI', 'page-dash': 'Hyphen instead of an en dash in a page range',
+  'sentence-case': 'Title not in sentence case', 'alpha': 'Out of alphabetical order', 'stat-italic': 'Statistical symbol not italicized',
+  'leading-zero': 'Unneeded zero before the decimal', 'needs-zero': 'Missing zero before the decimal', 'p-000': 'p reported as .000',
+  'stat-spacing': 'No spaces around =, <, or >', 'df': 'Missing degrees of freedom', 'p-exact': 'p value isn’t exact',
+  'nested-parens': 'Parentheses inside parentheses', 'number-start': 'Sentence starts with a numeral',
+  'method-sub-missing': 'A Method subsection is missing', 'design-missing': 'The study design isn\u2019t described',
+  'demographics': 'Participants aren\u2019t fully described', 'incentives': 'No mention of what participants received',
+  'ethics': 'No mention of ethical treatment', 'scale-items': 'Measure is missing its number of items',
+  'scale-anchors': 'Measure is missing its response scale', 'scale-sample': 'Measure is missing a sample item', 'scale-citation': 'Measure is missing a citation',
+  'ref-split': 'Reference split across two lines',
+  'cite-and': '\u201Cand\u201D inside parentheses', 'cite-amp-narrative': '\u201C&\u201D in a sentence', 'cite-comma': 'Missing comma before the year',
+  'cite-semicolon': 'Sources not separated by semicolons', 'cite-order': 'Sources not in alphabetical order', 'cite-etal-needed': 'Should use \u201Cet al.\u201D',
+  'cite-etal-wrong': '\u201Cet al.\u201D used for one or two authors', 'cite-no-ref': 'Source missing from the reference list', 'cite-year-mismatch': 'Year doesn\u2019t match the reference list',
+  'ref-uncited': 'Reference never cited in the paper', 'quote-page': 'Quotation missing a page number',
+  'ref-italic-journal': 'Journal name not italicized', 'ref-italic-volume': 'Volume number not italicized', 'ref-italic-issue': 'Issue number italicized',
+  'ref-italic-title': 'Article title italicized', 'ref-italic-book': 'Book title not italicized',
+};
+// What to look at: points the student to the right spot without naming the problem
+const LOOK = {
+  'margins': 'the white space around the edges of the page', 'font-novelty': 'the lettering of the marked text', 'font-size': 'the size of the text',
+  'font-consistency': 'the lettering of the marked text', 'font-consistency-more': 'the lettering of your text', 'line-spacing': 'the space between the lines',
+  'para-spacing': 'the gaps between paragraphs', 'justified': 'the right edge of the paragraph', 'double-space': 'the space after the period',
+  'page-number': 'the top of the page', 'page-number-pos': 'the top of the page', 'running-head': 'the top of the page', 'running-head-missing': 'the top of the page',
+  'empty-lines': 'the ¶ marks above this text', 'title-break': 'what comes after the last line of the title page', 'title-format': 'how the title looks',
+  'title-elements': 'the lines under the title', 'title-repeat': 'the first line of your text', 'title-repeat-format': 'how this title looks',
+  'no-title-page': 'the first page', 'intro-heading': 'this heading', 'method-heading': 'the wording of this heading', 'l1-format': 'how this heading looks',
+  'l2-format': 'how this heading looks', 'skip-level': 'this heading', 'indent-spaces': 'the start of the paragraph', 'indent-missing': 'the start of the first line',
+  'mla': 'the reference list as a whole', 'ref-label': 'the label at the top of the list', 'ref-heading': 'how the label looks',
+  'ref-newpage': 'what comes right before the label', 'ref-blanks': 'the space between the entries', 'hanging': 'how the lines of this entry line up',
+  'ref-year': 'the date', 'year-period': 'the punctuation after the date', 'author-period': 'the punctuation after the author',
+  'initials-space': 'the initials', 'full-names': 'the author’s name', 'ampersand': 'the word before the last author', 'comma-amp': 'the punctuation before the “&”',
+  'doi-format': 'the DOI', 'doi-retrieved': 'the words before the DOI', 'doi-period': 'the very end of the entry', 'doi-missing': 'the end of the entry',
+  'page-dash': 'the page numbers', 'sentence-case': 'the capital letters in the title', 'alpha': 'the first author’s name',
+  'stat-italic': null, 'leading-zero': 'the number', 'needs-zero': 'the number', 'p-000': 'the p value', 'stat-spacing': 'the spaces around the symbol',
+  'df': 'what comes right after the symbol', 'p-exact': 'the p value', 'nested-parens': 'the parentheses', 'number-start': 'the first word of the sentence',
+  'method-sub-missing': 'the headings inside your Method section', 'design-missing': 'how you describe your study\u2019s variables',
+  'demographics': 'who your participants were', 'incentives': 'why your participants took part', 'ethics': 'how your participants were treated',
+  'scale-items': 'how you describe this measure', 'scale-anchors': 'how you describe this measure', 'scale-sample': 'how you describe this measure', 'scale-citation': 'how you describe this measure',
+  'ref-split': 'where this line begins',
+  'cite-and': 'the word between the authors', 'cite-amp-narrative': 'the symbol between the authors', 'cite-comma': 'the punctuation before the year',
+  'cite-semicolon': 'the punctuation between the sources', 'cite-order': 'the order of the sources', 'cite-etal-needed': 'how many names you list',
+  'cite-etal-wrong': 'how you name the authors', 'cite-no-ref': 'your reference list', 'cite-year-mismatch': 'the year, then your reference list',
+  'ref-uncited': 'the body of your paper', 'quote-page': 'the citation after the quotation',
+  'ref-italic-journal': 'the lettering of the journal name', 'ref-italic-volume': 'the lettering of the volume number', 'ref-italic-issue': 'the lettering of the issue number',
+  'ref-italic-title': 'the lettering of the title', 'ref-italic-book': 'the lettering of the title',
+};
+// Look-alike problems never appear together in one set of answers
+const FAMILIES = [
+  ['font-size', 'font-consistency', 'font-consistency-more', 'font-novelty'], ['line-spacing', 'para-spacing', 'double-space'],
+  ['leading-zero', 'needs-zero'], ['p-000', 'p-exact'], ['ampersand', 'comma-amp'], ['year-period', 'author-period', 'ref-year'],
+  ['doi-format', 'doi-missing', 'doi-period', 'doi-retrieved'], ['indent-missing', 'indent-spaces', 'hanging'],
+  ['title-format', 'title-repeat-format', 'l1-format', 'l2-format', 'ref-heading'], ['empty-lines', 'title-break', 'ref-newpage', 'ref-blanks'],
+  ['page-number', 'page-number-pos', 'running-head', 'running-head-missing'], ['intro-heading', 'method-heading', 'ref-label'], ['title-repeat', 'no-title-page'],
+  ['ref-split', 'hanging'], ['cite-and', 'cite-amp-narrative'], ['cite-etal-needed', 'cite-etal-wrong'], ['cite-no-ref', 'cite-year-mismatch', 'ref-uncited'],
+  ['cite-comma', 'cite-semicolon'], ['ref-italic-journal', 'ref-italic-volume', 'ref-italic-issue', 'ref-italic-title', 'ref-italic-book'],
+];
+const famOf = (r) => { const k = FAMILIES.findIndex((f) => f.includes(r)); return k < 0 ? r : 'f' + k; };
+const POOL = {
+  'Page setup': ['margins', 'font-consistency', 'line-spacing', 'justified', 'page-number', 'indent-missing'],
+  'Spacing': ['line-spacing', 'para-spacing', 'justified', 'double-space', 'indent-missing', 'margins', 'empty-lines'],
+  'Title page and header': ['title-format', 'title-break', 'title-elements', 'running-head', 'title-repeat', 'line-spacing'],
+  'Headings': ['l1-format', 'intro-heading', 'skip-level', 'empty-lines', 'indent-missing', 'line-spacing'],
+  'References': ['hanging', 'year-period', 'initials-space', 'ampersand', 'doi-format', 'alpha', 'sentence-case', 'page-dash', 'full-names', 'ref-italic-journal', 'ref-italic-volume', 'ref-italic-title'],
+  'Statistics': ['stat-italic', 'leading-zero', 'stat-spacing', 'df', 'p-000', 'nested-parens', 'number-start'],
+  'Citations': ['cite-and', 'cite-comma', 'cite-semicolon', 'cite-order', 'cite-etal-needed', 'cite-no-ref', 'quote-page'],
+  'Method': ['method-sub-missing', 'design-missing', 'demographics', 'incentives', 'ethics', 'scale-items', 'scale-anchors', 'scale-sample', 'scale-citation'],
+};
+// Most serious first; used to pick which problem gets the question when several share a spot
+const RANK = ['mla', 'margins', 'font-novelty', 'title-break', 'no-title-page', 'line-spacing', 'ref-newpage', 'empty-lines', 'hanging', 'intro-heading',
+  'method-heading', 'method-sub-missing', 'design-missing', 'demographics', 'ethics', 'incentives', 'ref-split', 'cite-no-ref', 'cite-year-mismatch', 'quote-page', 'cite-etal-needed', 'cite-etal-wrong', 'cite-and', 'cite-amp-narrative', 'cite-comma', 'cite-semicolon', 'cite-order', 'l1-format', 'title-format', 'title-repeat', 'title-repeat-format', 'ref-heading', 'ref-label', 'font-consistency', 'font-size', 'para-spacing',
+  'justified', 'indent-missing', 'indent-spaces', 'page-number', 'running-head', 'running-head-missing', 'page-number-pos', 'stat-italic', 'p-000', 'leading-zero',
+  'needs-zero', 'df', 'stat-spacing', 'full-names', 'ampersand', 'alpha', 'ref-year', 'year-period', 'author-period', 'initials-space', 'comma-amp', 'doi-format',
+  'doi-retrieved', 'ref-italic-journal', 'ref-italic-title', 'ref-italic-volume', 'ref-italic-issue', 'ref-italic-book', 'page-dash', 'double-space', 'ref-blanks', 'l2-format', 'skip-level', 'nested-parens', 'number-start', 'title-elements', 'p-exact',
+  'sentence-case', 'doi-missing', 'doi-period', 'font-consistency-more', 'scale-items', 'scale-anchors', 'scale-sample', 'scale-citation', 'ref-uncited'];
+const rankOf = (g) => (g.severity === 'check' ? 100 : 0) + (RANK.includes(g.rule) ? RANK.indexOf(g.rule) : 60);
+
+function seeded(n) { let s = n * 9301 + 49297; return () => ((s = (s * 9301 + 49297) % 233280) / 233280); }
+function choicesFor(u, n) {
+  const g = u.primary;
+  const right = LABEL[g.rule] || g.items[0].title;
+  const rnd = seeded(n + 11);
+  const used = new Set([famOf(g.rule)]);
+  // never offer, as a wrong answer, a problem that really is present at this spot (or elsewhere on a whole-paper question)
+  const present = new Set();
+  S.units.forEach((un) => [un.primary].concat(un.also).forEach((x) => {
+    if (x === g) return;
+    if (g.scope === 'doc' ? x.scope === 'doc' : x.items.some((it) => anchorOf(it) === g.anchor || (it.paras || []).includes(g.anchor))) present.add(x.rule);
+  }));
+  present.forEach((r) => used.add(famOf(r)));
+  const local = (POOL[g.category] || []).slice().sort(() => rnd() - .5);
+  const global = Object.values(POOL).flat().sort(() => rnd() - .5);
+  const picks = [];
+  for (const r of local.concat(global)) {
+    if (picks.length === 3) break;
+    if (r === g.rule || used.has(famOf(r)) || !LABEL[r] || picks.includes(LABEL[r])) continue;
+    used.add(famOf(r)); picks.push(LABEL[r]);
+  }
+  const all = picks.concat([right]).map((t) => ({ t, ok: t === right }));
+  for (let i = all.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [all[i], all[j]] = [all[j], all[i]]; }
+  return all;
+}
+
+// ---------------------------------------------------------------- Units: one question per kind of problem, one question per spot
+function anchorOf(x) { return x.span ? x.span.para : x.example ? x.example.para : (x.paras && x.paras.length ? x.paras[0] : -1); }
+function buildUnits(issues) {
+  const groups = new Map();
+  for (const x of issues) {
+    const key = x.scope === 'doc' ? 'doc:' + x.rule : x.rule;
+    if (!groups.has(key)) groups.set(key, { rule: x.rule, category: x.category, scope: x.scope, items: [] });
+    groups.get(key).items.push(x);
+  }
+  const G = [...groups.values()];
+  G.forEach((g) => {
+    g.severity = g.items.some((x) => x.severity === 'error') ? 'error' : 'check';
+    g.anchor = Math.min(...g.items.map(anchorOf).filter((a) => a >= 0).concat([Infinity]));
+  });
+  const docUnits = G.filter((g) => g.scope === 'doc').sort((a, b) => rankOf(a) - rankOf(b)).map((g) => ({ primary: g, also: [] }));
+  // problems that cover many paragraphs (spacing, indents) get their own question; problems at one spot share a question
+  const wide = (g) => g.items.some((x) => (x.paras || []).length > 1);
+  const buckets = new Map();
+  const locUnits = [];
+  for (const g of G.filter((g) => g.scope !== 'doc')) {
+    if (wide(g)) { locUnits.push({ primary: g, also: [], at: g.anchor }); continue; }
+    if (!buckets.has(g.anchor)) buckets.set(g.anchor, []); buckets.get(g.anchor).push(g);
+  }
+  for (const [at, b] of buckets) { b.sort((x, y) => rankOf(x) - rankOf(y)); locUnits.push({ primary: b[0], also: b.slice(1), at }); }
+  locUnits.sort((a, b) => a.at - b.at || rankOf(a.primary) - rankOf(b.primary));
+  return docUnits.concat(locUnits);
+}
+function lookText(g) {
+  if (g.rule === 'stat-italic') {
+    const x = g.items[0]; const p = S.result.paragraphs[x.span.para];
+    return 'the symbol “' + p.text.slice(x.span.start, x.span.end) + '”';
+  }
+  return LOOK[g.rule] || 'the marked text';
+}
+
+// ---------------------------------------------------------------- State
+const S = { buf: null, name: '', first: null, result: null, units: [], i: 0, answers: {}, sections: null, ptype: 'student', checklist: [], view: null };
+const env = () => ({ JSZip: window.JSZip, DOMParser: window.DOMParser });
+
+function show(id, step) {
+  ['s-upload', 's-options', 's-walk', 's-check', 's-receipt'].forEach((s) => { $('#' + s).hidden = s !== id; });
+  const order = ['upload', 'options', 'whole', 'located', 'check', 'receipt'];
+  const at = order.indexOf(step);
+  document.querySelectorAll('#steps li').forEach((li) => {
+    const k = order.indexOf(li.dataset.s);
+    li.classList.toggle('on', k === at); li.classList.toggle('done', k < at);
+  });
+}
+
+// ---------------------------------------------------------------- Upload
+async function loadFile(buf, name) {
+  $('#upErr').hidden = true;
+  try {
+    S.buf = buf; S.name = name;
+    S.first = await LabPartnerEngine.check(buf, env());
+  } catch (e) {
+    $('#upErr').textContent = 'I couldn’t read that file. Make sure it’s a Word document (.docx), not .doc, .pdf, or .pages.';
+    $('#upErr').hidden = false; return;
+  }
+  $('#fname').textContent = name;
+  const conv = S.first.converted;
+  $('#convBanner').hidden = !conv;
+  if (conv) $('#convBanner').innerHTML = '<strong>This file looks like it was converted from a PDF.</strong> Converted files carry margins, section breaks, and spacing you didn’t create, so I’ll skip those checks. For a full check, upload your original Word file.';
+  const secs = S.first.sections;
+  $('#secList').innerHTML = secs.length ? secs.map((s, k) => `<label class="choice"><input type="checkbox" id="sec-${k}" value="${esc(s.name)}" checked><span>${esc(s.opening ? 'Opening text (before the first heading)' : s.name)}</span></label>`).join('')
+    : '<p class="muted" style="margin:0">I didn’t find section headings, so I’ll check the whole paper.</p>';
+  show('s-options', 'options'); window.scrollTo({ top: 0 });
+}
+const fileIn = $('#file');
+fileIn.addEventListener('change', () => { const f = fileIn.files[0]; if (f) f.arrayBuffer().then((b) => loadFile(b, f.name)); });
+const drop = $('#drop');
+['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', (e) => { const f = e.dataTransfer.files[0]; if (f) f.arrayBuffer().then((b) => loadFile(b, f.name)); });
+$('#trySample').addEventListener('click', () => {
+  const bin = atob(SAMPLE_B64); const u = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+  loadFile(u.buffer, 'Practice paper (sleep and working memory).docx');
+});
+$('#back1').addEventListener('click', () => { fileIn.value = ''; show('s-upload', 'upload'); });
+
+// ---------------------------------------------------------------- Run
+$('#go').addEventListener('click', async () => {
+  S.ptype = $('#pt-pro').checked ? 'professional' : 'student';
+  const boxes = [...document.querySelectorAll('#secList input')];
+  const chosen = boxes.filter((b) => b.checked).map((b) => b.value);
+  S.sections = boxes.length && chosen.length && chosen.length < boxes.length ? chosen : null;
+  S.result = await LabPartnerEngine.check(S.buf, Object.assign(env(), { paperType: S.ptype, sections: S.sections }));
+  S.units = buildUnits(S.result.issues.filter((x) => x.severity !== 'info'));
+  S.i = 0; S.answers = {};
+  S.checklist = buildChecklist(S.result, S.sections);
+  S.dom = dominantFont(S.result.paragraphs);
+  if (!S.units.length) { renderChecklist(); show('s-check', 'check'); return; }
+  renderUnit();
+  window.scrollTo({ top: 0 });
+});
+
+// ---------------------------------------------------------------- Paper view
+const IN = 6; // em per inch on the sheet
+function dominantFont(P) {
+  const t = {};
+  P.forEach((p) => !p.inTable && p.runs.forEach((r) => { const k = (r.font || '') + '|' + (r.size || ''); t[k] = (t[k] || 0) + (r.end - r.start); }));
+  const top = Object.entries(t).sort((a, b) => b[1] - a[1])[0];
+  const [font, size] = top ? top[0].split('|') : ['', ''];
+  return { font, size: Number(size) || 12 };
+}
+function paraStyle(p) {
+  const st = [];
+  st.push('text-align:' + ({ center: 'center', right: 'right', end: 'right', both: 'justify', distribute: 'justify' }[p.jc] || 'left'));
+  const lh = p.lineRule === 'auto' ? Math.max(1.0, p.line / 240 * 1.15) : 1.35;
+  st.push('line-height:' + lh.toFixed(2));
+  const left = p.indLeft / 1440 * IN, first = p.indHanging ? -p.indHanging / 1440 * IN : p.indFirst / 1440 * IN;
+  if (left) st.push('padding-left:' + left.toFixed(2) + 'em');
+  if (first) st.push('text-indent:' + first.toFixed(2) + 'em');
+  if (p.before) st.push('margin-top:' + (p.before / 240).toFixed(2) + 'em');
+  if (p.after) st.push('margin-bottom:' + (p.after / 240).toFixed(2) + 'em');
+  return st.join(';');
+}
+function runsHTML(p, spans) {
+  const t = p.text;
+  let cuts = new Set([0, t.length]);
+  p.runs.forEach((r) => { cuts.add(r.start); cuts.add(r.end); });
+  spans.forEach((s) => { cuts.add(Math.max(0, s.start)); cuts.add(Math.min(t.length, s.end)); });
+  cuts = [...cuts].filter((x) => x >= 0 && x <= t.length).sort((a, b) => a - b);
+  let html = '';
+  for (let k = 0; k < cuts.length - 1; k++) {
+    const a = cuts[k], b = cuts[k + 1];
+    if (a === b) continue;
+    const pinHere = spans.filter((s) => Math.max(0, s.start) === a && s.pin);
+    pinHere.forEach((s) => { html += `<span class="pin" id="pin-${s.pin}" aria-label="Place ${s.pin}">${s.pin}</span>`; });
+    const r = p.runs.find((x) => a >= x.start && a < x.end) || {};
+    let s = esc(t.slice(a, b));
+    const sty = [];
+    if (r.font && S.dom.font && r.font !== S.dom.font && !/cambria math|symbol/i.test(r.font)) sty.push(`font-family:'${r.font.replace(/'/g, '')}', Arial, sans-serif`);
+    if (r.size && S.dom.size && Math.abs(r.size - S.dom.size) > .5) sty.push('font-size:' + (r.size / S.dom.size).toFixed(2) + 'em');
+    if (sty.length) s = `<span style="${sty.join(';')}">${s}</span>`;
+    if (r.bold) s = '<b>' + s + '</b>';
+    if (r.italic) s = '<i>' + s + '</i>';
+    if (spans.some((x) => a >= x.start && b <= x.end)) s = '<mark>' + s + '</mark>';
+    html += s;
+  }
+  return html;
+}
+const PAW = '<svg viewBox="0 0 20 20" aria-hidden="true"><ellipse cx="10" cy="13.5" rx="4.6" ry="3.8" fill="currentColor"/><ellipse cx="4.3" cy="8.6" rx="1.9" ry="2.4" fill="currentColor"/><ellipse cx="8" cy="5.2" rx="1.9" ry="2.5" fill="currentColor"/><ellipse cx="12" cy="5.2" rx="1.9" ry="2.5" fill="currentColor"/><ellipse cx="15.7" cy="8.6" rx="1.9" ry="2.4" fill="currentColor"/></svg>';
+const flagHTML = (text) => `<div class="flagrow"><button class="flag" id="flag" type="button" aria-label="Paw print: show a hint" aria-expanded="false">${PAW}</button><span class="tip" role="tooltip">Hint: look at ${esc(text)}</span></div>`;
+function paraHTML(p, view) {
+  const spans = (view.spans[p.idx] || []);
+  const cls = ['para'];
+  if (view.shade.has(p.idx)) cls.push('also');
+  if (p.image && p.empty) return `<p class="${cls.join(' ')} fig" id="p${p.idx}">Figure or image</p>`;
+  if (p.empty) return `<p class="${cls.join(' ')} blank" id="p${p.idx}" style="${paraStyle(p)}" title="Blank line">¶</p>`;
+  return `<p class="${cls.join(' ')}" id="p${p.idx}" style="${paraStyle(p)}">${runsHTML(p, spans)}</p>`;
+}
+function renderPaper(view) {
+  const R = S.result, P = R.paragraphs;
+  const m = R.margins && R.margins.top ? R.margins : { top: 1440, bottom: 1440, left: 1440, right: 1440 };
+  const em = (tw) => (tw / 1440 * IN).toFixed(2) + 'em';
+  const sheet = $('#sheet');
+  sheet.style.setProperty('--mt', em(m.top)); sheet.style.setProperty('--mb', em(m.bottom));
+  sheet.style.setProperty('--ml', em(m.left)); sheet.style.setProperty('--mr', em(m.right));
+  sheet.classList.toggle('marg', view.target === 'margins');
+  const h = R.header;
+  let html = `<div class="hdr${view.target === 'header' ? ' hot' : ''}"><span>${h && h.text ? esc(h.text) : ''}</span><span>${h && h.hasPage ? '1' : ''}</span>${!h || (!h.text && !h.hasPage) ? '<span class="hdr-empty">header</span>' : ''}</div>`;
+  if (view.target === 'margins' || view.target === 'header') html += flagHTML(view.look);
+  html += '<div class="content">';
+  let k = 0;
+  while (k < P.length) {
+    const p = P[k];
+    if (p.kind === 'table') {
+      const cols = p.cols || 1; const cells = {};
+      k++;
+      while (k < P.length && P[k].inTable) { const c = P[k]; const key = c.row + ':' + c.col; (cells[key] = cells[key] || []).push(c); k++; }
+      const rows = Math.max(0, ...Object.keys(cells).map((x) => Number(x.split(':')[0]))) + 1;
+      html += `<div class="tbl" style="grid-template-columns:repeat(${cols}, minmax(0, 1fr))">`;
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) html += '<div class="td">' + (cells[r + ':' + c] || []).filter((x) => !x.empty).map((x) => paraHTML(x, view)).join('') + '</div>';
+      html += '</div>';
+      continue;
+    }
+    if (p.pageBreakBefore) html += '<div class="pbreak">page break</div>';
+    if (view.flagPara === p.idx) html += flagHTML(view.look);
+    html += paraHTML(p, view);
+    if (p.pageBreak) html += '<div class="pbreak">page break</div>';
+    k++;
+  }
+  html += '</div>';
+  sheet.innerHTML = html;
+}
+function scrollToEl(el) {
+  if (!el) return;
+  const wrap = $('#paperWrap');
+  const top = el.getBoundingClientRect().top - wrap.getBoundingClientRect().top + wrap.scrollTop;
+  wrap.scrollTo({ top: Math.max(0, top - 60), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}
+function viewFor(g) {
+  const view = { spans: {}, shade: new Set(), flagPara: null, target: null, look: lookText(g), pins: 0 };
+  const first = g.items[0];
+  if (first.target) { view.target = first.target; return view; }
+  let pin = 0;
+  const wholePara = (x) => x.span && x.span.start === 0 && S.result.paragraphs[x.span.para] && x.span.end >= S.result.paragraphs[x.span.para].text.length;
+  for (const x of g.items) {
+    const sp = x.span || x.example;
+    (x.paras || []).forEach((pi) => view.shade.add(pi));
+    if (!sp) continue;
+    if (wholePara(x) && x.paras && x.paras.length > 1) { view.shade.add(sp.para); continue; }
+    pin++;
+    (view.spans[sp.para] = view.spans[sp.para] || []).push({ start: sp.start, end: sp.end, pin: g.items.length > 1 ? pin : 0 });
+  }
+  view.pins = g.items.length > 1 ? pin : 0;
+  view.flagPara = g.anchor < Infinity ? g.anchor : null;
+  return view;
+}
+function showGroup(g, scroll) {
+  S.view = viewFor(g);
+  renderPaper(S.view);
+  if (scroll !== false) scrollToEl($('#flag') || $('#sheet'));
+  const fl = $('#flag');
+  if (fl) fl.addEventListener('click', () => { const row = fl.parentElement; const open = row.classList.toggle('open'); fl.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+}
+
+// ---------------------------------------------------------------- Question panel
+function placesHTML(g, view) {
+  const shaded = g.items.reduce((a, x) => a + ((x.paras || []).length > 1 ? x.paras.length : 0), 0);
+  if (view.pins > 1) {
+    return `<div class="places"><span>This shows up in ${view.pins} places, numbered in your paper:</span><div class="pins">` +
+      Array.from({ length: Math.min(view.pins, 40) }, (_, k) => `<button class="pinbtn" type="button" data-pin="${k + 1}">${k + 1}</button>`).join('') + '</div></div>';
+  }
+  if (shaded > 1) return `<p class="places">It affects ${shaded} paragraphs, shaded in your paper.</p>`;
+  return '';
+}
+function wirePins(root) {
+  root.querySelectorAll('.pinbtn').forEach((b) => b.addEventListener('click', () => {
+    const el = $('#pin-' + b.dataset.pin);
+    if (window.innerWidth <= 860) $('#paperWrap').scrollIntoView({ block: 'start' });
+    scrollToEl(el && el.closest('.para'));
+  }));
+}
+function renderUnit() {
+  const u = S.units[S.i];
+  const g = u.primary;
+  const n = S.units.length;
+  const isDoc = g.scope === 'doc';
+  show('s-walk', isDoc ? 'whole' : 'located');
+  showGroup(g);
+  const ans = S.answers[S.i];
+  const ch = choicesFor(u, S.i);
+  const check = g.severity === 'check';
+  const where = g.items[0].target === 'margins' ? 'Look at the <strong>marked</strong> part of your page.'
+    : g.items[0].target === 'header' ? 'Look at the <strong>marked</strong> top of your page.'
+      : 'Look at the <strong>highlighted text</strong> where I left a paw print.';
+  const ask = (isDoc ? 'This one is about your <strong>whole paper</strong>. ' : '') + where + (check ? ' Something there might be off. What should you check?' : ' What\u2019s wrong?') +
+    '</p><p class="hintnote">Stuck? Point at or tap the paw for a hint.';
+  let html = `
+    <div class="progress"><span class="mono">Question ${S.i + 1} of ${n}</span><div class="bar"><i style="width:${(S.i / n * 100).toFixed(1)}%"></i></div></div>
+    <div class="chips"><span class="chip">${esc(g.category)}</span>${isDoc ? '<span class="chip whole">Whole paper</span>' : ''}${check ? '<span class="chip check">Check this</span>' : ''}</div>
+    <div class="say"><span class="goldie" data-goldie="${ans ? (ans.ok ? 'yay' : 'think') : 'happy'}"></span><div class="bubble"><p>${ask}</p></div></div>
+    ${placesHTML(g, S.view)}
+    <button class="btn ghost jump" id="jump" type="button">Show me in my paper</button>
+    <div class="answers" role="group" aria-label="Possible problems">`;
+  ch.forEach((c, k) => {
+    const cls = ans ? (c.ok ? ' right' : (ans.pick === k ? ' wrong' : '')) : '';
+    html += `<button class="ans${cls}" data-k="${k}" type="button" ${ans ? 'disabled' : ''}><span class="k">${'ABCD'[k]}</span><span>${esc(c.t)}</span></button>`;
+  });
+  html += '</div>';
+  if (ans) {
+    const first = g.items[0];
+    const verdict = ans.ok ? (check ? 'Good nose. That’s what I spotted.' : 'Good nose! You found it.') : 'Not quite. Here’s what I spotted.';
+    const title = g.items.length > 1 ? `${LABEL[g.rule] || first.title} (${g.items.length} places)` : first.title;
+    html += `<div class="reveal">
+      <p class="verdict ${ans.ok ? 'good' : 'bad'}">${verdict}</p>
+      <h3>${esc(title)}</h3>
+      ${first.detail ? `<p>${esc(first.detail)}${g.items.length > 1 ? ' (This is the first one.)' : ''}</p>` : ''}
+      ${check ? '<p class="verdict check">This isn’t always an error. Look at it and decide.</p>' : ''}
+      <p class="fixline"><strong>How to fix it:</strong> ${esc(first.fix || '')}</p>
+      ${first.link ? `<p><a href="${esc(first.link)}" target="_blank" rel="noopener">Learn more about this rule</a></p>` : ''}
+    </div>`;
+    if (u.also.length) {
+      html += `<div class="alsobox"><p class="alsohead">I also noticed ${u.also.length === 1 ? 'one more thing' : u.also.length + ' more things'} here. No quiz on these; here they are.</p>`;
+      u.also.forEach((a, k) => {
+        const x = a.items[0];
+        html += `<div class="alsoitem"><h4>${esc(a.items.length > 1 ? `${LABEL[a.rule] || x.title} (${a.items.length} places)` : x.title)}${a.severity === 'check' ? ' <span class="chip check">Check this</span>' : ''}</h4>
+          ${x.detail ? `<p>${esc(x.detail)}</p>` : ''}
+          <p class="fixline"><strong>How to fix it:</strong> ${esc(x.fix || '')}</p>
+          <div class="row">${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">Learn more</a>` : ''}<button class="btn ghost small" type="button" data-also="${k}">Show where</button></div></div>`;
+      });
+      html += '</div>';
+    }
+  }
+  html += `<div class="row">
+      <button class="btn ghost" id="prev" type="button" ${S.i === 0 ? 'disabled' : ''}>Back</button>
+      <button class="btn ${ans ? 'gold' : 'ghost'}" id="next" type="button">${S.i === n - 1 ? 'Finish' : (ans ? 'Next' : 'Skip')}</button>
+    </div>`;
+  const panel = $('#panel');
+  panel.innerHTML = html;
+  paintGoldies(panel);
+  wirePins(panel);
+  panel.querySelectorAll('.ans').forEach((b) => b.addEventListener('click', () => {
+    const k = Number(b.dataset.k);
+    S.answers[S.i] = { pick: k, ok: ch[k].ok };
+    renderUnit();
+  }));
+  panel.querySelectorAll('[data-also]').forEach((b) => b.addEventListener('click', () => {
+    const a = u.also[Number(b.dataset.also)];
+    showGroup(a);
+    if (window.innerWidth <= 860) $('#paperWrap').scrollIntoView({ block: 'start' });
+  }));
+  $('#jump').addEventListener('click', () => { $('#paperWrap').scrollIntoView({ block: 'start' }); scrollToEl($('#flag')); });
+  $('#prev').addEventListener('click', () => { if (S.i > 0) { S.i--; renderUnit(); } });
+  $('#next').addEventListener('click', () => {
+    if (S.i < n - 1) { S.i++; renderUnit(); }
+    else { renderChecklist(); show('s-check', 'check'); }
+    window.scrollTo({ top: 0 });
+  });
+}
+
+// ---------------------------------------------------------------- Self-review checklist (rule triggered, no AI)
+function buildChecklist(R, sections) {
+  const P = R.paragraphs;
+  const secName = (idx) => { const s = R.sections.find((x) => idx >= x.start && idx <= x.end); return s ? s.name : ''; };
+  const refSec = R.sections.find((s) => /^(references|works cited|bibliography)$/i.test(s.name));
+  const inScope = (p) => p.kind === 'p' && !p.empty && !p.inTable && p.idx > R.titleEnd && !(refSec && p.idx >= refSec.start) && !p.heading &&
+    !/^(table|figure)\s+\d/i.test(p.text.trim()) && (!sections || sections.some((n) => n.toLowerCase() === secName(p.idx).toLowerCase()));
+  const body = P.filter(inScope);
+  const sentences = [];
+  body.forEach((p) => splitSentences(p.text).forEach((s) => sentences.push({ s, idx: p.idx })));
+  const all = body.map((p) => p.text).join('\n');
+  const find = (re) => sentences.find((x) => re.test(x.s));
+  const names = R.sections.map((s) => s.name.toLowerCase());
+  const chosen = sections ? sections.map((n) => n.toLowerCase()) : names;
+  const items = [];
+  const add = (q, ex) => items.push({ q, ex: ex ? ex.s : null });
+  if (chosen.some((n) => /^method/.test(n)) && names.some((n) => /^method/.test(n))) add('You described what you did in your study. Did you write it in past tense, since the study is over?');
+  if (chosen.some((n) => /^discussion/.test(n)) && names.some((n) => /^discussion/.test(n))) add('When you interpret your findings, are you using present tense (“these results suggest”)? When you restate them, past tense (“participants recalled”)?');
+  const FP = /(?<!(War|Type|Phase|Part|Chapter|Study|Experiment) )\b(I(?= [a-z])|[Ww]e|[Oo]ur|[Mm]y)\b/;
+  const fp = (all.match(new RegExp(FP.source, 'g')) || []).length;
+  const res = find(/\bthe (researchers?|authors?|experimenters?)\b/i) || (fp >= 5 ? find(FP) : null);
+  if (res) add('Could participants or the materials be the subject of this sentence instead? First person is acceptable in small doses, but sentences about what participants did usually read more clearly.', res);
+  const prove = find(/\b(prove[sdn]?|proves|proving|proof|fact)\b/i);
+  if (prove) add('Science rarely proves anything. Does your evidence support a claim this strong, or would “support” or “suggest” be more accurate?', prove);
+  if (/correlat|\br\s*\(\s*\d/i.test(all)) { const c = find(/\b(causes?|caused|causing|leads? to|led to|effect of)\b/i); if (c) add('Does your design allow a causal claim? If you measured rather than manipulated the variable, how might you rephrase this?', c); }
+  const sig = sentences.find((x) => /\bsignifican(t|tly|ce)\b/i.test(x.s) && !/[=<>]|\bp\b/.test(x.s) && !/statistically/i.test(x.s));
+  if (sig) add('Do you mean statistically significant? If you mean important, is there a word that won’t confuse your reader?', sig);
+  const early = sentences.find((x) => {
+    const m = /[=<>]/.exec(x.s); if (!m || x.s.length <= 40 || m.index >= x.s.length * 0.3) return false;
+    const pre = x.s.slice(0, m.index); if ((pre.match(/\(/g) || []).length > (pre.match(/\)/g) || []).length) return false;
+    return /\b(M|SD|t|F|p|r)\b/.test(x.s.slice(0, m.index + 1));
+  });
+  if (early) add('Does this sentence tell the reader what happened in words, with the statistic supporting it at the end?', early);
+  const subj = find(/(?<!(between|within|mixed)[-\s])\bsubjects\b(?![-\s](design|factor|variable|effect|comparison|ANOVA))/i);
+  if (subj) add('APA prefers “participants” for people. Is there a reason to use “subjects” here?', subj);
+  const bias = find(/\b(males|females|the elderly|elderly|schizophrenics|addicts|autistics|diabetics|the mentally ill|alcoholics|homosexuals)\b/i);
+  if (bias) add('APA asks writers to describe people with specificity and respect (e.g., “women,” “older adults,” “people with schizophrenia”). Does your wording do that?', bias);
+  const anth = find(/\b(study|experiment|research|paper|article|survey)\s+(tried|wanted|believed|wished|hoped|thought|felt|wants|tries|believes)\b/i);
+  if (anth) add('Studies don’t have intentions; researchers do. Who actually are we writing about?', anth);
+  const abbr = sentences.map((x) => ({ x, m: (x.s.match(/\b[A-Z]{2,6}s?\b/g) || []).filter((w) => !COMMON_ABBR.has(w.replace(/s$/, ''))) })).find((y) => y.m.length);
+  if (abbr) add('Did you spell out \u201C' + abbr.m[0] + '\u201D the first time you used it, with the abbreviation in parentheses?', abbr.x);
+  // a quoted title (mostly capitalized words) is a title, not a quotation
+  const isTitle = (q) => { const w = q.split(/\s+/).filter((x) => x.length > 3); return w.length > 0 && w.filter((x) => /^[A-Z]/.test(x)).length / w.length > .6; };
+  const quote = sentences.find((x) => { const m = /[\u201C"]([^\u201D"]{12,})[\u201D"]/.exec(x.s); return m && !isTitle(m[1]) && !/^method/i.test(secName(x.idx)) && !/\bitems?\b/i.test(x.s); });
+  if (quote) add('Psychology writing strongly prefers paraphrase to quotation. Could this quotation be put in your own words?', quote);
+  const long = sentences.find((x) => x.s.split(/\s+/).length > 40);
+  if (long) add('Could a reader follow this sentence on a single pass? Would two sentences be clearer?', long);
+  const inf = find(/\b\w+n[\u2019']t\b|\b\w+[\u2019'](re|ll|ve)\b|\b(a lot|pretty much|stuff|huge)\b|(?<!\b(any|this|that|what|each|one|some|every|the|a|same) )\b(kind|sort) of\b/i);
+  if (inf) add('Does this phrase fit the formal writing style of a research paper?', inf);
+  let rep = null;
+  for (let k = 2; k < sentences.length && !rep; k++) {
+    const w = (x) => (x.s.split(/\s+/)[0] || '').toLowerCase().replace(/[^a-z]/g, '');
+    const len = (x) => x.s.split(/\s+/).length;
+    const a = sentences[k - 2], b = sentences[k - 1], c = sentences[k];
+    if (a.idx !== c.idx) continue; // three sentences in a row within one paragraph
+    if (w(a) && w(a) === w(b) && w(b) === w(c)) rep = { trio: [a, b, c], why: 'all begin with \u201C' + a.s.split(/\s+/)[0].replace(/[^\w\u2019']/g, '') + '\u201D' };
+    else if ([a, b, c].every((x) => len(x) > 30)) rep = { trio: [a, b, c], why: 'are all long (over 30 words each)' };
+    else if ([a, b, c].every((x) => len(x) < 10)) rep = { trio: [a, b, c], why: 'are all short (under 10 words each)' };
+  }
+  if (rep) items.push({ q: 'Try to vary your sentence structure. Some can be short, others longer. Change up the subject as well.',
+    note: 'For example, these three sentences in a row ' + rep.why + ':', trio: rep.trio.map((x) => x.s) });
+  return items;
+}
+const COMMON_ABBR = new Set(['APA', 'US', 'USA', 'SONA', 'IQ', 'ANOVA', 'ANCOVA', 'MANOVA', 'MANCOVA', 'SD', 'SE', 'SEM', 'CI', 'IV', 'DV', 'SPSS', 'JASP', 'IRB', 'GPA', 'PhD', 'HSD', 'LSD', 'OK', 'TV', 'AI', 'BA', 'BS', 'MA', 'MD', 'TU', 'UK', 'NA', 'II', 'III', 'VI', 'PM', 'AM', 'DOI', 'URL', 'ID', 'MS', 'SS', 'DF', 'DC', 'NYC', 'PI', 'LGBTQ', 'COVID', 'HIV', 'AIDS', 'NFL', 'NBA']);
+function splitSentences(text) {
+  const out = []; let start = 0;
+  const re = /[.!?]["\u201D\u2019)\]]*\s+(?=["\u201C(\[]?[A-Z0-9])/g; let m;
+  while ((m = re.exec(text))) {
+    const before = text.slice(start, m.index + 1);
+    const lastWord = (before.match(/(\S+)$/) || ['', ''])[1];
+    if (/^(al|e\.g|i\.e|vs|cf|Dr|Mr|Mrs|Ms|Prof|Inc|St|No|Vol|pp?|Fig|Eds?|U\.S|ca|approx)\.$/i.test(lastWord) || /^[A-Z]\.$/.test(lastWord)) continue;
+    out.push(text.slice(start, m.index + m[0].length).trim()); start = m.index + m[0].length;
+  }
+  const tail = text.slice(start).trim(); if (tail) out.push(tail);
+  return out.filter((x) => /[A-Za-z]/.test(x));
+}
+function renderChecklist() {
+  const L = S.checklist;
+  const cut = (t, n) => esc(t.length > n ? t.slice(0, n - 1) + '\u2026' : t);
+  $('#clList').innerHTML = L.length ? L.map((it, k) => `<label for="cl-${k}"><input type="checkbox" id="cl-${k}"><span><span class="q">${esc(it.q)}</span>${
+    it.trio ? `<span class="ex" style="display:block"><span class="exlead">${esc(it.note)}</span>${it.trio.map((t, j) => `<span style="display:block">${j + 1}. \u201C${cut(t, 160)}\u201D</span>`).join('')}</span>`
+    : it.ex ? `<span class="ex" style="display:block">For example: \u201C${cut(it.ex, 220)}\u201D</span>` : ''}</span></label>`).join('')
+    : '<p class="muted">Nothing in your writing tripped my self-review questions. Nice work.</p>';
+}
+$('#toReceipt').addEventListener('click', () => { renderReceipt(); show('s-receipt', 'receipt'); window.scrollTo({ top: 0 }); });
+
+// ---------------------------------------------------------------- Receipt
+function receiptData() {
+  const cats = {};
+  S.units.forEach((un, k) => {
+    [un.primary].concat(un.also).forEach((g, j) => {
+      const c = cats[g.category] || (cats[g.category] = { n: 0 });
+      c.n += g.items.length;
+    });
+  });
+  const date = new Date().toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  return { cats, date };
+}
+function renderReceipt() {
+  const { cats, date } = receiptData();
+  const rows = Object.entries(cats);
+  const tot = { n: rows.reduce((a, [, c]) => a + c.n, 0) };
+  $('#receipt').innerHTML = `
+    <div class="rh">${goldie('yay')}<div><h2>Lab Partner receipt</h2><div class="muted" style="color:#555">APA formatting check</div></div></div>
+    <dl>
+      <dt>Date</dt><dd>${esc(date)}</dd>
+      <dt>File</dt><dd>${esc(S.name)}</dd>
+      <dt>Format</dt><dd>${S.ptype === 'professional' ? 'Professional paper' : 'Student paper'}</dd>
+      <dt>Sections</dt><dd>${S.sections ? esc(S.sections.join(', ')) : 'Whole paper'}</dd>
+    </dl>
+    <table>
+      <thead><tr><th>Category</th><th class="n">Issues found</th></tr></thead>
+      <tbody>${rows.length ? rows.map(([k, c]) => `<tr><td>${esc(k)}</td><td class="n">${c.n}</td></tr>`).join('') : '<tr><td colspan="2">No formatting issues found</td></tr>'}</tbody>
+      <tfoot><tr><td>Total</td><td class="n">${tot.n}</td></tr></tfoot>
+    </table>
+    <p class="foot">Lab Partner checks formatting with rules, not AI. Your paper was read only in your browser and was not uploaded or stored.</p>`;
+  S.receiptText = ['LAB PARTNER RECEIPT (APA formatting check)', 'Date: ' + date, 'File: ' + S.name,
+    'Format: ' + (S.ptype === 'professional' ? 'Professional paper' : 'Student paper'), 'Sections: ' + (S.sections ? S.sections.join(', ') : 'Whole paper'), '',
+    'Category | Issues found', ...rows.map(([k, c]) => `${k} | ${c.n}`), `Total | ${tot.n}`].join('\n');
+}
+// Printing works on the standalone site; inside a framed preview it does not, so offer copying there.
+if (window.self === window.top) $('#printBtn').hidden = false;
+$('#printBtn').addEventListener('click', () => window.print());
+$('#copyBtn').addEventListener('click', () => {
+  const msg = $('#copyMsg');
+  try {
+    navigator.clipboard.writeText(S.receiptText).then(() => { msg.textContent = 'Copied. Paste it into your revision commentary.'; }, () => { msg.textContent = 'Copying is blocked here. Select the receipt text and copy it yourself.'; });
+  } catch (e) { msg.textContent = 'Copying is blocked here. Select the receipt text and copy it yourself.'; }
+});
+$('#again').addEventListener('click', () => { fileIn.value = ''; $('#copyMsg').textContent = ''; show('s-upload', 'upload'); window.scrollTo({ top: 0 }); });
+
+show('s-upload', 'upload');
+})();
+</script>
+
+</body></html>
